@@ -19,7 +19,7 @@ public class SecurityFilter implements Filter {
 	private FilterConfig filterConfig = null;
 	private long currTime = 0L;
 	private long expiryTime = 0L;
-	private final String urllogin = "/ctatVisitSchedule/login";
+	private final String urllogin = "/ctacVisitSchedule/login";
 
 	private void doBeforeProcessing(ServletRequest request, ServletResponse response)
 			throws IOException, ServletException {
