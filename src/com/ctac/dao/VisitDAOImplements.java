@@ -639,6 +639,12 @@ public class VisitDAOImplements implements IVisitDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			tx = session.beginTransaction();
+			/*
+			 INSERT INTO visits.visit_schedule(date_hour, id_company, id_employee, 
+       id_visitor, registration_date, id_usuario, id_reason, status, id_department) 
+VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
+			 */
+			
 			String sql = "INSERT INTO visits.visit_schedule(\n" + 
 					"date_hour, id_company, id_employee, id_visitor, registration_date, id_usuario, id_reason, status)\n" + 
 					"VALUES (:date_hour, :id_company, :id_employee, :id_visitor, :registration_date, :id_usuario, :id_reason, :status) RETURNING id_visit_schedule; ";
