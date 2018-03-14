@@ -17,7 +17,7 @@ public class ControladorPrincipal {
 	@RequestMapping({"/home"})
 	public ModelAndView WiewPanelPrincipal(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession sesion = request.getSession();
-		String namemenu = "Panel Principal";
+		String namemenu = "Main Panel";
 		String titlemenu = "";
 		HashMap route = new HashMap();
 		route.put(Integer.valueOf(1), "Panel Principal");

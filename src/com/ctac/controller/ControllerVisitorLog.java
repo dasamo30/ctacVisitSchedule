@@ -52,9 +52,17 @@ public class ControllerVisitorLog {
 		VisitScheduleBean visitSchedule=serviceVisit.selectVisitScheduleByIdByVisitor(codeorname);
 		int op=1;
 		if(visitSchedule!=null) {
+		    String name1 = visitSchedule.getId_visit_schedule()+visitSchedule.getDate_hour().toString();
+		    String name2 ="2"; 
+		    System.out.println("name1.hashCode() "+name1+"= "+name1.hashCode());
+		    System.out.println("name1.hashCode() "+name1+"= "+name2.hashCode());
+
 			op=0;
 			System.out.println(visitSchedule.toString());
 		}
+		
+		String name2 ="CTAC1002"; 
+	    System.out.println("name2.hashCode() "+name2+"= "+name2.hashCode());
 		resul.put("op", op);
 		resul.put("data", visitSchedule);
 		
