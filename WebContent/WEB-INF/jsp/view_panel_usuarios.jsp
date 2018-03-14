@@ -23,7 +23,7 @@
                 <div class="box-header with-border">
                     <!-- Link trigger modal -->
                     <a href="${contextPath}/usuarios/ActViewUsuario" data-toggle="modal" data-target="#myModalViewUsuario" data-remote="false" class="btn btn-primary">
-                        Nuevo usuario
+                        New User
                     </a>
                 </div><!-- /.box-header -->
                 <!-- form start -->

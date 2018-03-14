@@ -22,7 +22,7 @@
                 <form  data-toggle="validator" id="${formUsuario}" role="form">
                   <div class="box-body">
                    <div class="form-group">
-                      <label for="txtusuario">Usuario</label>
+                      <label for="txtusuario">User</label>
                       <input type="text" class="form-control" id="txtusuario" name="login" value="${usuarioBean.login}" placeholder="Ingrese nombre de usuario" required  >
                       <div class="help-block with-errors"></div>
                     </div>
