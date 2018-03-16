@@ -18,7 +18,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.ctac.bean.CompanyBean;
+import com.ctac.bean.DepartmentBean;
 import com.ctac.bean.EmployeeBean;
+import com.ctac.bean.OccupationBean;
 import com.ctac.bean.ReasonVisitBean;
 import com.ctac.bean.VisitScheduleBean;
 import com.ctac.bean.VisitorBean;
@@ -189,12 +191,12 @@ public class VisitDAOImplements implements IVisitDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			tx = session.beginTransaction();
-			String sql = "INSERT INTO visits.employee( full_name, idcard, gender, registration_date, status) "
-					+ "VALUES ( :full_name , :idcard , :gender , :registration_date , :status)";
+			String sql = "INSERT INTO visits.employee( full_name, idcard, id_occupation, registration_date, status) "
+					+ "VALUES ( :full_name , :idcard , :id_occupation , :registration_date , :status)";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.setParameter("full_name", employeeBean.getFull_name());
 			query.setParameter("idcard", employeeBean.getIdcard());
-			query.setParameter("gender", employeeBean.getGender());
+			query.setParameter("id_occupation", employeeBean.getId_occupation());
 			query.setParameter("status", employeeBean.getStatus());
 			query.setParameter("registration_date", employeeBean.getRegistration_date());
 			int result =query.executeUpdate();
@@ -229,12 +231,12 @@ public class VisitDAOImplements implements IVisitDAO {
 		try {
 			tx = session.beginTransaction();
 			String sql = "UPDATE visits.employee\n" + 
-					"SET full_name= :full_name, idcard= :idcard, gender=:gender \n" + 
+					"SET full_name= :full_name, idcard= :idcard, id_occupation=:id_occupation \n" + 
 					"WHERE id_employee= :id_employee";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.setParameter("full_name", employeeBean.getFull_name());
 			query.setParameter("idcard", employeeBean.getIdcard());
-			query.setParameter("gender", employeeBean.getGender());
+			query.setParameter("id_occupation", employeeBean.getId_occupation());
 			query.setParameter("id_employee", employeeBean.getId_employee());
 			int result =query.executeUpdate();
 			System.out.println("resultdet.executeUpdate:: "+result);
@@ -306,7 +308,11 @@ public class VisitDAOImplements implements IVisitDAO {
 		ArrayList<EmployeeBean> listEmployeeBean=new ArrayList<>();
 		try {
 			//tx = session.beginTransaction();
-			String e = "SELECT id_employee, full_name, idcard, gender, registration_date, status FROM visits.employee where status <> 0";
+			String e = "SELECT a.id_employee, a.full_name, a.idcard, a.id_occupation, a.registration_date, a.status,\n" + 
+					"       b.occupation\n" + 
+					"FROM visits.employee a\n" + 
+					"INNER JOIN visits.occupation b on b.id_occupation=a.id_occupation\n" + 
+					"where a.status <> 0";
 			SQLQuery query = session.createSQLQuery(e);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List data = query.list();
@@ -318,9 +324,10 @@ public class VisitDAOImplements implements IVisitDAO {
 	            employee.setId_employee((int) row.get("id_employee"));
 	            employee.setFull_name((String) row.get("full_name"));
 	            employee.setIdcard((String) row.get("idcard"));
-	            employee.setGender(String.valueOf(row.get("gender")));
+	            employee.setId_occupation((int) row.get("id_occupation"));
 	            employee.setStatus((short) row.get("status"));
 	            employee.setRegistration_date((Date) row.get("registration_date"));
+	            employee.setOccupation_name((String) row.get("occupation"));
 	            listEmployeeBean.add(employee);
 	         }
 				
@@ -352,7 +359,7 @@ public class VisitDAOImplements implements IVisitDAO {
 		
 		try {
 			//tx = session.beginTransaction();
-			String e = "SELECT id_employee, full_name, idcard, gender, registration_date, status FROM visits.employee where id_employee = :id_employee ";
+			String e = "SELECT id_employee, full_name, idcard, id_occupation, registration_date, status FROM visits.employee where id_employee = :id_employee ";
 			SQLQuery query = session.createSQLQuery(e);
 			query.setParameter("id_employee", id_employee);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
@@ -361,7 +368,7 @@ public class VisitDAOImplements implements IVisitDAO {
             employee.setId_employee((int) map.get("id_employee"));
             employee.setFull_name((String) map.get("full_name"));
             employee.setIdcard((String) map.get("idcard"));
-            employee.setGender(String.valueOf(map.get("gender")));
+            employee.setId_occupation((int) map.get("id_occupation"));
             employee.setStatus((short) map.get("status"));
             employee.setRegistration_date((Date) map.get("registration_date"));
 	         
@@ -633,8 +640,8 @@ public class VisitDAOImplements implements IVisitDAO {
 
 
 	@Override
-	public int insertIntoVisitSchedule(VisitScheduleBean visitSchedule) {
-		int rpta = -1;
+	public String insertIntoVisitSchedule(VisitScheduleBean visitSchedule) {
+		String rpta = "-1";
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
 		try {
@@ -646,8 +653,8 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			 */
 			
 			String sql = "INSERT INTO visits.visit_schedule(\n" + 
-					"date_hour, id_company, id_employee, id_visitor, registration_date, id_usuario, id_reason, status)\n" + 
-					"VALUES (:date_hour, :id_company, :id_employee, :id_visitor, :registration_date, :id_usuario, :id_reason, :status) RETURNING id_visit_schedule; ";
+					"date_hour, id_company, id_employee, id_visitor, registration_date, id_usuario, id_reason, status,id_department)\n" + 
+					"VALUES (:date_hour, :id_company, :id_employee, :id_visitor, :registration_date, :id_usuario, :id_reason, :status, :id_department) RETURNING call_cod; ";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.setParameter("date_hour", visitSchedule.getDate_hour());
 			query.setParameter("id_company", visitSchedule.getId_company());
@@ -657,15 +664,16 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			query.setParameter("id_reason", visitSchedule.getId_reason());
 			query.setParameter("status", visitSchedule.getStatus());
 			query.setParameter("registration_date", visitSchedule.getRegistration_date());
+			query.setParameter("id_department", visitSchedule.getId_department());
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List data = query.list();
-			int id_visit_schedule = ((BigInteger) ((HashMap) data.get(0)).get("id_visit_schedule")).intValue();
-			System.out.println("id_visit_schedule::" + id_visit_schedule);
+			String call_cod = (String) ((HashMap) data.get(0)).get("call_cod");
+			System.out.println("id_visit_schedule::" + call_cod);
 			
 			//System.out.println("resultdet.executeUpdate:: "+result);
 			 if (!tx.wasCommitted()){
 	                tx.commit();
-	                rpta=id_visit_schedule;
+	                rpta=call_cod;
 	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
@@ -736,9 +744,22 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		ArrayList<VisitScheduleBean> listVisitSchedule=new ArrayList<>();
 		try {
 			//tx = session.beginTransaction();
-			String e = "SELECT id_visit_schedule, date_hour,id_company, id_employee, \n" + 
-					"       id_visitor, registration_date, id_usuario, id_reason, status\n" + 
-					"  FROM visits.visit_schedule where status=1;";
+			String e = "SELECT a.id_visit_schedule, a.date_hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
+					"       a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod,\n" + 
+					"       b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number,\n" + 
+					"       c.full_name as full_name_employee,\n" + 
+					"       d.company_name,\n" + 
+					"       e.reasons_name,\n" + 
+					"       f.department\n" + 
+					"  FROM visits.visit_schedule a\n" + 
+					"  inner join visits.visitors b on b.id_visitor=a.id_visitor\n" + 
+					"  inner join visits.employee c on c.id_employee=a.id_employee\n" + 
+					"  inner join visits.company d on d.id_company=a.id_company\n" + 
+					"  inner join visits.reasons_visit e on e.id_reason=a.id_reason\n" + 
+					"  inner join visits.department f on f.id_department=a.id_department\n" + 
+					"  where\n" + 
+					"  a.status=1 \n" + 
+					"  order by a.id_visit_schedule desc";
 			SQLQuery query = session.createSQLQuery(e);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List data = query.list();
@@ -746,17 +767,29 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			for(Object object : data)
 	         {
 	            Map row = (Map)object;
-	            VisitScheduleBean VisitSchedule=new VisitScheduleBean();
-	            VisitSchedule.setId_visit_schedule(((BigInteger) row.get("id_visit_schedule")).intValue());
-	            VisitSchedule.setDate_hour((Date) row.get("date_hour"));
-	            VisitSchedule.setId_company((int) row.get("id_company"));
-	            VisitSchedule.setId_employee((int) row.get("id_employee"));
-	            VisitSchedule.setId_visitor((int) row.get("id_visitor"));
-	            VisitSchedule.setId_usuario((int) row.get("id_usuario"));
-	            VisitSchedule.setId_reason((int) row.get("id_reason"));
-	            VisitSchedule.setStatus((short) row.get("status"));
-	            VisitSchedule.setRegistration_date((Date) row.get("registration_date"));
-	            listVisitSchedule.add(VisitSchedule);
+	            VisitScheduleBean visitSchedule=new VisitScheduleBean();
+	            visitSchedule.setId_visit_schedule(((BigInteger) row.get("id_visit_schedule")).intValue());
+	            visitSchedule.setDate_hour((Date) row.get("date_hour"));
+	            visitSchedule.setId_company((int) row.get("id_company"));
+	            visitSchedule.setId_employee((int) row.get("id_employee"));
+	            visitSchedule.setId_visitor((int) row.get("id_visitor"));
+	            visitSchedule.setId_department((int) row.get("id_department"));
+	            visitSchedule.setId_usuario((int) row.get("id_usuario"));
+	            visitSchedule.setId_reason((int) row.get("id_reason"));
+	            visitSchedule.setStatus((short) row.get("status"));
+	            visitSchedule.setRegistration_date((Date) row.get("registration_date"));
+	            visitSchedule.setFull_name_visitor((String) row.get("full_name_visitor"));
+	            visitSchedule.setNumber_license((String) row.get("number_license"));
+	            visitSchedule.setCitizen_ship((String) row.get("citizen_ship"));
+	            visitSchedule.setEmail((String) row.get("email"));
+	            visitSchedule.setPhone_number((String) row.get("phone_number"));
+	            visitSchedule.setFull_name_employee((String) row.get("full_name_employee"));
+	            visitSchedule.setCompany_name((String) row.get("company_name"));
+	            visitSchedule.setReasons_name((String) row.get("reasons_name"));
+	            visitSchedule.setDepartment_name((String) row.get("department"));
+	            visitSchedule.setCall_cod((String) row.get("call_cod"));
+
+	            listVisitSchedule.add(visitSchedule);
 	         }
 				
 
@@ -794,21 +827,26 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		String date=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 		try {
 			//tx = session.beginTransaction();
-			String  sql= "SELECT a.id_visit_schedule, a.date_hour, a.number_badge, a.id_company, a.id_employee, \n" + 
-					"       a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,\n" + 
+			String  sql= "SELECT a.id_visit_schedule, a.date_hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
+					"       a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod,\n" + 
 					"       b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number,\n" + 
-					"       c.full_name as full_name_employee,\n" + 
+					"       c.full_name as full_name_employee,g.occupation as occupation_employee,\n" + 
 					"       d.company_name,\n" + 
-					"       e.reasons_name\n" + 
+					"       e.reasons_name,\n" + 
+					"       f.department\n" + 
 					"  FROM visits.visit_schedule a\n" + 
 					"  inner join visits.visitors b on b.id_visitor=a.id_visitor\n" + 
 					"  inner join visits.employee c on c.id_employee=a.id_employee\n" + 
 					"  inner join visits.company d on d.id_company=a.id_company\n" + 
 					"  inner join visits.reasons_visit e on e.id_reason=a.id_reason\n" + 
+					"  inner join visits.department f on f.id_department=a.id_department\n" + 
+					"  inner join visits.occupation g on g.id_occupation=c.id_occupation\n" +
 					"  where\n" + 
+					"  a.status=1\n" + 
+					"  and \n" + 
 					"  cast(a.date_hour as date)= cast( :datev as date) \n" + 
 					"  and	\n" + 
-					"  cast(id_visit_schedule as varchar)= :codeorname or b.full_name= :codeorname";
+					"  call_cod= :codeorname or b.full_name= :codeorname";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.setParameter("codeorname", codeorname);
 			query.setParameter("datev", date);
@@ -825,6 +863,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 				visitSchedule.setId_visitor((int) map.get("id_visitor"));
 				visitSchedule.setId_usuario((int) map.get("id_usuario"));
 				visitSchedule.setId_reason((int) map.get("id_reason"));
+				visitSchedule.setId_department((int) map.get("id_department"));
 	            visitSchedule.setStatus((short) map.get("status"));
 	            visitSchedule.setRegistration_date((Date) map.get("registration_date"));
 	            visitSchedule.setFull_name_visitor((String) map.get("full_name_visitor"));
@@ -833,8 +872,11 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	            visitSchedule.setEmail((String) map.get("email"));
 	            visitSchedule.setPhone_number((String) map.get("phone_number"));
 	            visitSchedule.setFull_name_employee((String) map.get("full_name_employee"));
+	            visitSchedule.setOccupation_employee((String) map.get("occupation_employee"));
 	            visitSchedule.setCompany_name((String) map.get("company_name"));
 	            visitSchedule.setReasons_name((String) map.get("reasons_name"));
+	            visitSchedule.setDepartment_name((String) map.get("department"));
+	            visitSchedule.setCall_cod((String) map.get("call_cod"));
 			}
 		} catch (HibernateException e) {
 			visitSchedule = null;
@@ -844,6 +886,90 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		}
 		//System.out.println(visitSchedule.toString());
 		return visitSchedule;
+	}
+
+
+	@Override
+	public ArrayList<DepartmentBean> selectDepartmentBean() {
+		Transaction tx = null;
+		Session session = sessionFactory.openSession();
+		//ArrayList litsPerfilBean = new ArrayList();
+		ArrayList<DepartmentBean> listDepartment=new ArrayList<>();
+		try {
+			//tx = session.beginTransaction();
+			String e = "SELECT id_department, department FROM visits.department where status=1";
+			SQLQuery query = session.createSQLQuery(e);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+			
+			for(Object object : data)
+	         {
+	            Map row = (Map)object;
+	            DepartmentBean department=new DepartmentBean();
+	            department.setId_department((int) row.get("id_department"));
+	            department.setDepartment((String) row.get("department"));
+	            listDepartment.add(department);
+	         }
+				
+
+			/*
+			if (!tx.wasCommitted()) {
+				tx.commit();
+			}*/
+		} catch (HibernateException e) {
+			/*if (tx != null) {
+				tx.rollback();
+			}*/
+
+			listDepartment = null;
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return listDepartment;
+	}
+
+
+	@Override
+	public ArrayList<OccupationBean> selectOccupationBean() {
+		Transaction tx = null;
+		Session session = sessionFactory.openSession();
+		//ArrayList litsPerfilBean = new ArrayList();
+		ArrayList<OccupationBean> listOccupation=new ArrayList<>();
+		try {
+			//tx = session.beginTransaction();
+			String e = "SELECT id_occupation, occupation FROM visits.occupation where status=1";
+			SQLQuery query = session.createSQLQuery(e);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+			
+			for(Object object : data)
+	         {
+	            Map row = (Map)object;
+	            OccupationBean occupation=new OccupationBean();
+	            occupation.setId_occupation((int) row.get("id_occupation"));
+	            occupation.setOccupation((String) row.get("occupation"));
+	            listOccupation.add(occupation);
+	         }
+				
+
+			/*
+			if (!tx.wasCommitted()) {
+				tx.commit();
+			}*/
+		} catch (HibernateException e) {
+			/*if (tx != null) {
+				tx.rollback();
+			}*/
+
+			listOccupation = null;
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return listOccupation;
 	}
 
 

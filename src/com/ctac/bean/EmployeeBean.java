@@ -7,9 +7,10 @@ public class EmployeeBean {
 	private int id_employee;
 	private String full_name;
 	private String  idcard;
-	private String gender;
+	private int id_occupation;
 	private Date registration_date;
 	private short status;
+	private String occupation_name;
 	public int getId_employee() {
 		return id_employee;
 	}
@@ -28,11 +29,11 @@ public class EmployeeBean {
 	public void setIdcard(String idcard) {
 		this.idcard = idcard;
 	}
-	public String getGender() {
-		return gender;
+	public int getId_occupation() {
+		return id_occupation;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setId_occupation(int id_occupation) {
+		this.id_occupation = id_occupation;
 	}
 	public Date getRegistration_date() {
 		return registration_date;
@@ -40,17 +41,23 @@ public class EmployeeBean {
 	public void setRegistration_date(Date registration_date) {
 		this.registration_date = registration_date;
 	}
-	public Short getStatus() {
+	public short getStatus() {
 		return status;
 	}
-	public void setStatus(Short status) {
+	public void setStatus(short status) {
 		this.status = status;
+	}
+	public String getOccupation_name() {
+		return occupation_name;
+	}
+	public void setOccupation_name(String occupation_name) {
+		this.occupation_name = occupation_name;
 	}
 	@Override
 	public String toString() {
 		return "EmployeeBean [id_employee=" + id_employee + ", full_name=" + full_name + ", idcard=" + idcard
-				+ ", gender=" + gender + ", registration_date=" + registration_date + ", status=" + status + "]";
+				+ ", id_occupation=" + id_occupation + ", registration_date=" + registration_date + ", status=" + status
+				+ ", occupation_name=" + occupation_name + "]";
 	}
-	
 	
 }

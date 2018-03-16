@@ -82,6 +82,16 @@
                        	<div class="help-block with-errors"></div>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="cboDepartment">Department</label>   
+                       	<form:select path="listDepartment" cssClass="form-control" required="required" id="cboDepartment" name="id_department" cssStyle="width: 100%;" >
+						      <option value="">-- Seleccione --</option>
+						      <c:forEach items="${listDepartment}" var="department">
+						            <option <c:if test="${department.id_department eq EmployeeBean.id_department}">selected="selected"</c:if>  value="${department.id_department}">${department.department} </option>
+						        </c:forEach>
+						</form:select>
+                       	<div class="help-block with-errors"></div>
+                    </div>
                     
                      
                   </div><!-- /.box-body -->

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ctac.bean.CompanyBean;
 import com.ctac.bean.EmployeeBean;
+import com.ctac.bean.OccupationBean;
 import com.ctac.libraries.DataTableObject;
 import com.ctac.service.ServiceVisit;
 import com.google.gson.Gson;
@@ -51,6 +54,11 @@ private ServiceVisit serviceVisit= new ServiceVisit();
 		return mv;
 	}
 	
+	@ModelAttribute("listOccupation")
+	public ArrayList<OccupationBean> listOccupation() {
+      ArrayList<OccupationBean> data=serviceVisit.selectOccupationBean();	
+      return data;
+    }
 	
 	@RequestMapping(value = {"/employee/ActViewEmployee"}, method = {RequestMethod.POST})
 	@ResponseBody

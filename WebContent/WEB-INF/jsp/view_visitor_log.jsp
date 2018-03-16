@@ -26,6 +26,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="${contextPath}/dist/css/skins/_all-skins.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="${contextPath}/plugins/iCheck/all.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -97,7 +99,7 @@
                     </div>
                   </form>
               </div><!-- /.box-body -->
-              <div id="divdataVisit" class='box-footer box-comments'style="display: none">
+              <div id="divdataVisit" class='box-footer box-comments'style="display: block;">
               	
                   <div class='box-comment'>
                     <!-- User image -->
@@ -122,6 +124,7 @@
               Employe
               <address>
                 <strong id="full_name_employee"></strong><br>
+                occupation: <span id="occupation_employee"></span><br>
               </address>
             </div><!-- /.col -->
             <div class="col-sm-4 invoice-col">
@@ -130,15 +133,28 @@
               <b id="id_visit_schedule"> </b><br>
               <b>Reason:</b> <span id="reasons_name"></span><br>
               <b>Date hour:</b><span id="date_hour"></span><br>
+               <b>Department:</b><span id="department_name"></span><br>
               <!--<b>Account:</b> 968-34567-->
               </address>
             </div><!-- /.col -->
                     </div><!-- /.comment-text -->
                   </div><!-- /.box-comment -->
                   <div class='box-comment'>
-                    <div class='comment-text'>
-                     ingreso
-                    </div><!-- /.comment-text -->
+                    <form action="">
+                    <section class="col-md-5 col-print-3">                          
+                       <div class="form-group form-horizontal">
+                      <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
+                      
+                       <input type="checkbox" class="flat-red" checked>
+                      Badge
+                      </label>
+                      <div class="col-sm-9 input-group input-group-sm">
+                        <input type="text" class="form-control" id="inputEmail3" placeholder="Badge" required >
+                      </div>
+                    </div>
+	                </section>
+                     <button type="submit" class="btn btn-success pull-right">Generate Income</button>
+                     </form>
                   </div><!-- /.box-comment -->
                 </div><!-- /.box-footer -->
                 <div class="box-footer">
@@ -172,6 +188,8 @@
 	<script src="${contextPath}/plugins/validator/validator.js"></script>
 	<!-- blockUI -->
     <script src="${contextPath}/plugins/blockUI/jquery.blockUI.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="${contextPath}/plugins/iCheck/icheck.min.js"></script>
 	<!-- funcion general -->
     <script src="${contextPath}/js/functions.js"></script>
     <!-- visitorLog -->

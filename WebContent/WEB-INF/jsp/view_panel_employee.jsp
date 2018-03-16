@@ -57,8 +57,8 @@
                     <thead>
                       <tr>
                         <th>full_name</th>
+                        <th>occupation</th>
                         <th>idcard</th>
-                        <th>gender</th>
                         <th>Edit</th>
                         <th>Remove</th>
                       </tr>
@@ -66,8 +66,8 @@
                     <tfoot>
                       <tr>
                         <th>full_name</th>
+                        <th>occupation</th>
                         <th>idcard</th>
-                        <th>gender</th>
                         <th>Edit</th>
                         <th>Remove</th>
                       </tr>

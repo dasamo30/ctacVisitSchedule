@@ -220,6 +220,10 @@ jQuery(document).ready( function () {
 	        	
 	        	$('#modal-title').html(title);
 	            $('#modal-body').html(data); 
+	            $("#cboOccupation").select2({
+	    		    placeholder: "Select a employee",
+	    		    dropdownParent: $('#myModalViewEmployee')
+	            });
 	            $(frm).validator();
 	        }); 
 	    });
@@ -374,9 +378,9 @@ jQuery(document).ready( function () {
 	            }
 	        },
 	        "aoColumns": [
-	        { "mData": "full_name","width":"60%" },
+	        { "mData": "full_name","width":"50%" },
+	        { "mData": "occupation_name" },
 	        { "mData": "idcard" },
-	        { "mData": "gender" },
 	        { "mData":null,
 	            "bSortable": false,
 	            "sClass": "text-center",
@@ -622,17 +626,23 @@ jQuery(document).ready( function () {
 	            $('#modal-body').html(data); 
 	            $(frm).validator();
 	            $("#cboVisitor").select2({
-	    		    placeholder: "Select a visitor",
-	    		    dropdownParent: $('#myModalViewSchedule')
+	    		    placeholder: "Select a visitor"
 	            });
 	            $("#cboEmployee").select2({
-	    		    placeholder: "Select a employee",
-	    		    dropdownParent: $('#myModalViewSchedule')
+	    		    placeholder: "Select a employee"
+	            });
+	            $("#cboCompany").select2({
+	    		    placeholder: "Select a cboCompany"
+	            });
+	            $("#cboDepartment").select2({
+	    		    placeholder: "Select a Department"
 	            });
 	            $('#containerDateIni').datetimepicker({
 	            	format: 'DD-MM-YYYY'
 	            	//minDate: moment(1, 'h')
 	            });
+	            
+	            $.fn.modal.Constructor.prototype.enforceFocus = function () {};
 	            $('#containerHoraIni').datetimepicker({
 	                format: 'LT'
 	                //minDate: moment()
@@ -656,7 +666,7 @@ jQuery(document).ready( function () {
 	           msj.html("");
 	           
 	        
-	        console.log(":::frmrRegisterVisitor");
+	        console.log(":::formRegisterSchedule");
 	        //return;
 	       $.ajax({
 	            type: "POST",
@@ -666,13 +676,13 @@ jQuery(document).ready( function () {
 	            success: function(result){
 	              //  alert(result);
 	            //  chatWith('9','name');
-	                if(result > 0){
-	                    alerts(0,msj,"Su numero de visita es:"+result);   
+	                //if(result > 0){
+	                    alerts(0,msj,"El codigo de ingreso generado es:"+result);   
 	                    loadDataTable("#tbSchedule");
 	                    frm.trigger('reset');
-	                }else{
+	                /*}else{
 	                    alerts(2,msj,"A ocurrido un error interno !!!");
-	                }
+	                }*/
 	                
 	                
 	            },
@@ -790,11 +800,11 @@ jQuery(document).ready( function () {
 	            }
 	        },
 	        "aoColumns": [
-	        { "mData": "id_visit_schedule","width":"20%" },
-	        { "mData": "id_visitor" },
-	        { "mData": "id_company" },
+	        { "mData": "call_cod"},
+	        { "mData": "full_name_visitor" },
+	        { "mData": "company_name" },
 	        { "mData": "date_hour" },
-	        { "mData": "id_employee" },
+	        { "mData": "full_name_employee" },
 	        { "mData":null,
 	            "bSortable": false,
 	            "sClass": "text-center",

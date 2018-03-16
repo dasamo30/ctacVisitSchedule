@@ -43,11 +43,14 @@ jQuery(document).ready( function () {
                 	$("#reasons_name").text(result.data.reasons_name)
                 	$("#date_hour").text(result.data.date_hour)
                 	
+                	$("#department_name").text(result.data.department_name)
+                	$("#occupation_employee").text(result.data.occupation_employee)
+                	
                     //alerts(0,msj,"la company se grabo con exito");   
                     //loadDataTable("#tbCompany");
                     frm.trigger('reset');
                 }else{
-                    alerts(2,msj,"No cuenta con una visita progrmada para el dia de hoy");
+                    alerts(2,msj,"No cuenta con una visita programada para el dia de hoy");
                 }
                 
                 
@@ -59,5 +62,10 @@ jQuery(document).ready( function () {
             } 
         });
     });
+	
+	$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green'
+      });
 });
 	

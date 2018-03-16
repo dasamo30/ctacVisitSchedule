@@ -1,3 +1,6 @@
+  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+ <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
  <!-- Main content -->
       <!--  <section class="content"> -->
             <div class="row"> 
@@ -22,14 +25,15 @@
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <label for="cbogender">Gender</label>
-                        <select id="cbogender" name="gender" class="form-control" required >
-                        	<option value="" ${ !empty EmployeeBean ? 'selected' : ''}>Seleccione</option>
-                            <option value="M" ${ EmployeeBean.gender=="M" ? 'selected' : ''}>Male</option>
-                            <option value="F" ${ EmployeeBean.gender=="F" ? 'selected' : ''}>Fermale</option>
-                        </select>
-                        <div class="help-block with-errors"></div>
-                    </div>
+                        <label for="cboOccupation">Occupation</label>   
+                       	<form:select path="listOccupation" cssClass="form-control" required="required" id="cboOccupation" name="id_occupation" cssStyle="width: 100%;" >
+						      <option value="">-- Seleccione --</option>
+						      <c:forEach items="${listOccupation}" var="occupation">
+						            <option <c:if test="${occupation.id_occupation eq EmployeeBean.id_occupation}">selected="selected"</c:if>  value="${occupation.id_occupation}">${occupation.occupation} </option>
+						        </c:forEach>
+						</form:select>
+                       	<div class="help-block with-errors"></div>
+                    </div> 
                   </div><!-- /.box-body -->
                   <input type="hidden" name="id_employee"  value="${ !empty EmployeeBean ? EmployeeBean.id_employee : '0'}" readonly /> 
                   <div class="modal-footer">

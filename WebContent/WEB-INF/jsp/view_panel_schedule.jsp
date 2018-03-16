@@ -56,11 +56,11 @@
                   <table id="tbSchedule" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>number visit</th>
-                        <th>id_visitor</th>
-                        <th>id_company</th>
+                        <th>visit code</th>
+                        <th>visitor</th>
+                        <th>company</th>
                         <th>date_hour</th>
-                        <th>id_employee</th>
+                        <th>employee</th>
                         <th>Edit</th>
                         <th>Remove</th>
                       </tr>

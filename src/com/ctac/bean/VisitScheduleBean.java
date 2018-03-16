@@ -13,6 +13,7 @@ public class VisitScheduleBean {
 	private Date registration_date;
 	private int id_usuario;
 	private int id_reason;
+	private int id_department;
 	private String date;
 	private String hour;
 	private short status;
@@ -22,8 +23,11 @@ public class VisitScheduleBean {
 	private String email;
 	private String phone_number;
 	private String full_name_employee;
+	private String occupation_employee;
 	private String company_name;
 	private String reasons_name;
+	private String department_name;
+	private String call_cod;
 	public int getId_visit_schedule() {
 		return id_visit_schedule;
 	}
@@ -77,6 +81,12 @@ public class VisitScheduleBean {
 	}
 	public void setId_reason(int id_reason) {
 		this.id_reason = id_reason;
+	}
+	public int getId_department() {
+		return id_department;
+	}
+	public void setId_department(int id_department) {
+		this.id_department = id_department;
 	}
 	public String getDate() {
 		return date;
@@ -144,16 +154,36 @@ public class VisitScheduleBean {
 	public void setReasons_name(String reasons_name) {
 		this.reasons_name = reasons_name;
 	}
+	public String getDepartment_name() {
+		return department_name;
+	}
+	public void setDepartment_name(String department_name) {
+		this.department_name = department_name;
+	}
+	public String getCall_cod() {
+		return call_cod;
+	}
+	public void setCall_cod(String call_cod) {
+		this.call_cod = call_cod;
+	}
+	public String getOccupation_employee() {
+		return occupation_employee;
+	}
+	public void setOccupation_employee(String occupation_employee) {
+		this.occupation_employee = occupation_employee;
+	}
 	@Override
 	public String toString() {
 		return "VisitScheduleBean [id_visit_schedule=" + id_visit_schedule + ", date_hour=" + date_hour
 				+ ", number_badge=" + number_badge + ", id_company=" + id_company + ", id_employee=" + id_employee
 				+ ", id_visitor=" + id_visitor + ", registration_date=" + registration_date + ", id_usuario="
-				+ id_usuario + ", id_reason=" + id_reason + ", date=" + date + ", hour=" + hour + ", status=" + status
-				+ ", full_name_visitor=" + full_name_visitor + ", number_license=" + number_license + ", citizen_ship="
-				+ citizen_ship + ", email=" + email + ", phone_number=" + phone_number + ", full_name_employee="
-				+ full_name_employee + ", company_name=" + company_name + ", reasons_name=" + reasons_name + "]";
+				+ id_usuario + ", id_reason=" + id_reason + ", id_department=" + id_department + ", date=" + date
+				+ ", hour=" + hour + ", status=" + status + ", full_name_visitor=" + full_name_visitor
+				+ ", number_license=" + number_license + ", citizen_ship=" + citizen_ship + ", email=" + email
+				+ ", phone_number=" + phone_number + ", full_name_employee=" + full_name_employee
+				+ ", occupation_employee=" + occupation_employee + ", company_name=" + company_name + ", reasons_name="
+				+ reasons_name + ", department_name=" + department_name + ", call_cod=" + call_cod + "]";
 	}
-	
+
 	
 }

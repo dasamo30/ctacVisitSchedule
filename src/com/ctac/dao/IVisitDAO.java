@@ -3,7 +3,9 @@ package com.ctac.dao;
 import java.util.ArrayList;
 
 import com.ctac.bean.CompanyBean;
+import com.ctac.bean.DepartmentBean;
 import com.ctac.bean.EmployeeBean;
+import com.ctac.bean.OccupationBean;
 import com.ctac.bean.ReasonVisitBean;
 import com.ctac.bean.VisitScheduleBean;
 import com.ctac.bean.VisitorBean;
@@ -29,12 +31,15 @@ public interface IVisitDAO {
 	
 	public ArrayList<ReasonVisitBean> selectReasonVisitBean();
 	
-	public int insertIntoVisitSchedule(VisitScheduleBean visitSchedule);
+	public String insertIntoVisitSchedule(VisitScheduleBean visitSchedule);
 	public int updateVisitSchedule(VisitScheduleBean visitSchedule);
 	public int deleteVisitSchedule(VisitScheduleBean visitSchedule);
 	public ArrayList<VisitScheduleBean> selectVisitSchedule();
 	public VisitScheduleBean selectVisitScheduleById(int id_visit_schedule);
 	
 	public VisitScheduleBean selectVisitScheduleByIdByVisitor(String codeorname);
+	
+	public ArrayList<DepartmentBean> selectDepartmentBean();
+	public ArrayList<OccupationBean> selectOccupationBean();
 	
 }

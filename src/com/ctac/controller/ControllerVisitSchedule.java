@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctac.bean.CompanyBean;
+import com.ctac.bean.DepartmentBean;
 import com.ctac.bean.EmployeeBean;
 import com.ctac.bean.ReasonVisitBean;
 import com.ctac.bean.VisitScheduleBean;
@@ -81,6 +82,12 @@ public class ControllerVisitSchedule {
       return data;
     }
 	
+	@ModelAttribute("listDepartment")
+	public ArrayList<DepartmentBean> listDepartment() {
+      ArrayList<DepartmentBean> data=serviceVisit.selectDepartmentBean();		
+      return data;
+    }
+	
 	@RequestMapping(value = {"/schedule/ActViewSchedule"}, method = {RequestMethod.POST})
 	@ResponseBody
 	public ModelAndView ActViewSchedule() {
@@ -94,7 +101,7 @@ public class ControllerVisitSchedule {
 	
 	@RequestMapping(value = {"/schedule/ActRegisterSchedule"}, method = {RequestMethod.POST})
 	@ResponseBody
-	public int ActRegisterSchedule(HttpServletRequest request,@RequestBody VisitScheduleBean visitScheduleBean) throws ParseException {
+	public String ActRegisterSchedule(HttpServletRequest request,@RequestBody VisitScheduleBean visitScheduleBean) throws ParseException {
 		HttpSession sesion = request.getSession();
 		
 		//SimpleDateFormat date=new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -109,7 +116,7 @@ public class ControllerVisitSchedule {
 		visitScheduleBean.setDate_hour(sf.parse(date_hour));
 		System.out.println(visitScheduleBean.toString());
 		
-		int rpta =this.serviceVisit.insertIntoVisitSchedule(visitScheduleBean);
+		String rpta =this.serviceVisit.insertIntoVisitSchedule(visitScheduleBean);
 		System.out.println("respuesta::: "+rpta);
 		return rpta;
 	}
