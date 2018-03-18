@@ -82,7 +82,7 @@ public class ControllerVisitorLog {
 			visitorLog.setType((short) 3);
 			
 		}*/
-		int rpta=0;//serviceVisit.insertVisitorLog(visitorLog);
+		int rpta=serviceVisit.insertVisitorLog(visitorLog);
 		
 		
 		System.out.println("ActRegisterVisit: "+visitorLog.toString());
