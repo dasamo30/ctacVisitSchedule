@@ -99,7 +99,7 @@
                     </div>
                   </form>
               </div><!-- /.box-body -->
-              <div id="divdataVisit" class='box-footer box-comments'style="display: block;">
+              <div id="divdataVisit" class='box-footer box-comments'style="display: none;">
               	
                   <div class='box-comment'>
                     <!-- User image -->
