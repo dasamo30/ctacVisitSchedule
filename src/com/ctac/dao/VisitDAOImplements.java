@@ -24,6 +24,7 @@ import com.ctac.bean.OccupationBean;
 import com.ctac.bean.ReasonVisitBean;
 import com.ctac.bean.VisitScheduleBean;
 import com.ctac.bean.VisitorBean;
+import com.ctac.bean.VisitorLogBean;
 import com.google.gson.Gson;
 
 public class VisitDAOImplements implements IVisitDAO {
@@ -842,8 +843,8 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 					"  inner join visits.department f on f.id_department=a.id_department\n" + 
 					"  inner join visits.occupation g on g.id_occupation=c.id_occupation\n" +
 					"  where\n" + 
-					"  a.status=1\n" + 
-					"  and \n" + 
+					//"  a.status<>3\n" + 
+					//"  and \n" + 
 					"  cast(a.date_hour as date)= cast( :datev as date) \n" + 
 					"  and	\n" + 
 					"  call_cod= :codeorname or b.full_name= :codeorname";
@@ -970,6 +971,107 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		}
 
 		return listOccupation;
+	}
+
+
+	@Override
+	public int insertVisitorLog(VisitorLogBean visitorLog) {
+		// TODO Auto-generated method stub
+		int rpta = -1;
+		Transaction tx = null;
+		Session session = sessionFactory.openSession();
+		try {
+			tx = session.beginTransaction();
+			
+			String sql = "INSERT INTO visits.visitor_log(\n" + 
+					"            id_visit_schedule, badge_number, type, registration_date)\n" + 
+					"    VALUES ( :id_visit_schedule , :badge_number , :type , :registration_date );";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setParameter("id_visit_schedule", visitorLog.getId_visit_schedule());
+			query.setParameter("badge_number", visitorLog.getBadge_number());
+			query.setParameter("type", visitorLog.getType());
+			query.setParameter("registration_date", visitorLog.getRegistration_date());
+			int result =query.executeUpdate();
+			
+			System.out.println("resultdet.executeUpdate:: "+result);
+			
+			String sql2="UPDATE visits.visit_schedule\n" + 
+					"   SET badge_number=:badge_number,status=:status \n" + 
+					" WHERE id_visit_schedule=:id_visit_schedule";
+			SQLQuery query2 = session.createSQLQuery(sql2);
+			query2.setParameter("id_visit_schedule", visitorLog.getId_visit_schedule());
+			query2.setParameter("badge_number", visitorLog.getBadge_number());
+			query2.setParameter("status",(visitorLog.getType()==1)? 2:3);
+			
+			int result2 =query2.executeUpdate();
+			
+			System.out.println("resultdet.executeUpdate:: "+result2);
+			
+			 if (!tx.wasCommitted()){
+	                tx.commit();
+	                rpta=0;
+	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	          }
+	            
+	        }catch (HibernateException e) {
+	            if (tx!=null){
+	            	System.out.println("HibernateException.rollback:: "+e.getMessage());
+	                tx.rollback();
+	            }
+	            System.out.println("HibernateException:: "+e.getMessage());
+	            e.printStackTrace(); 
+	        }finally {
+	         System.out.println("Hibernate.session.close::");	
+	          session.close();
+	        }	
+
+		return rpta;
+	}
+
+
+	@Override
+	public ArrayList<VisitorLogBean> selectVisitorLog(int id_visit_schedule) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		//ArrayList litsPerfilBean = new ArrayList();
+		ArrayList<VisitorLogBean> listVisitorLog=new ArrayList<>();
+		try {
+			//tx = session.beginTransaction();
+			String e = "SELECT id_visit_schedule, badge_number, type, registration_date \n" + 
+					   "FROM visits.visitor_log where id_visit_schedule= :id_visit_schedule";
+			SQLQuery query = session.createSQLQuery(e);
+			query.setParameter("id_visit_schedule", id_visit_schedule);
+			
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+			
+			for(Object object : data)
+	         {
+	            Map row = (Map)object;
+	            VisitorLogBean visitorLog=new VisitorLogBean();
+	            visitorLog.setId_visit_schedule(((BigInteger) row.get("id_visit_schedule")).intValue());
+	            visitorLog.setBadge_number((String) row.get("badge_number"));
+	            visitorLog.setType((short) row.get("type"));
+	            visitorLog.setRegistration_date((Date) row.get("registration_date"));
+	            listVisitorLog.add(visitorLog);
+	         }
+				
+
+			/*
+			if (!tx.wasCommitted()) {
+				tx.commit();
+			}*/
+		} catch (HibernateException e) {
+			/*if (tx != null) {
+				tx.rollback();
+			}*/
+
+			listVisitorLog = null;
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listVisitorLog;
 	}
 
 

@@ -9,6 +9,7 @@ import com.ctac.bean.OccupationBean;
 import com.ctac.bean.ReasonVisitBean;
 import com.ctac.bean.VisitScheduleBean;
 import com.ctac.bean.VisitorBean;
+import com.ctac.bean.VisitorLogBean;
 
 public interface IVisitDAO {
 	
@@ -41,5 +42,9 @@ public interface IVisitDAO {
 	
 	public ArrayList<DepartmentBean> selectDepartmentBean();
 	public ArrayList<OccupationBean> selectOccupationBean();
+	
+	public int insertVisitorLog(VisitorLogBean visitorLog);
+	
+	public ArrayList<VisitorLogBean> selectVisitorLog(int id_visit_schedule);
 	
 }

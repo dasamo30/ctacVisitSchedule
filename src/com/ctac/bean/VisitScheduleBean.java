@@ -1,10 +1,16 @@
 package com.ctac.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class VisitScheduleBean {
 	
 	private int id_visit_schedule;
+	
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date date_hour;
 	private String number_badge;
 	private int id_company;
@@ -28,6 +34,8 @@ public class VisitScheduleBean {
 	private String reasons_name;
 	private String department_name;
 	private String call_cod;
+	private ArrayList<VisitorLogBean>  listVisitorLog;
+	
 	public int getId_visit_schedule() {
 		return id_visit_schedule;
 	}
@@ -172,6 +180,12 @@ public class VisitScheduleBean {
 	public void setOccupation_employee(String occupation_employee) {
 		this.occupation_employee = occupation_employee;
 	}
+	public ArrayList<VisitorLogBean> getVisitorLog() {
+		return listVisitorLog;
+	}
+	public void setVisitorLog(ArrayList<VisitorLogBean> visitorLog) {
+		this.listVisitorLog = visitorLog;
+	}
 	@Override
 	public String toString() {
 		return "VisitScheduleBean [id_visit_schedule=" + id_visit_schedule + ", date_hour=" + date_hour
@@ -182,8 +196,9 @@ public class VisitScheduleBean {
 				+ ", number_license=" + number_license + ", citizen_ship=" + citizen_ship + ", email=" + email
 				+ ", phone_number=" + phone_number + ", full_name_employee=" + full_name_employee
 				+ ", occupation_employee=" + occupation_employee + ", company_name=" + company_name + ", reasons_name="
-				+ reasons_name + ", department_name=" + department_name + ", call_cod=" + call_cod + "]";
+				+ reasons_name + ", department_name=" + department_name + ", call_cod=" + call_cod + ", visitorLog="
+				+ listVisitorLog + "]";
 	}
-
+	
 	
 }

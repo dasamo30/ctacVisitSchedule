@@ -132,7 +132,8 @@ public class ControllerVisitSchedule {
 		dataTableObject.setAaData(listVisitSchedule);
 		dataTableObject.setiTotalDisplayRecords(listVisitSchedule.size());
 		dataTableObject.setiTotalRecords(listVisitSchedule.size());
-		Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
+		Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm:ss").create(); 
+		//Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
 		String json = gson.toJson(dataTableObject);
 		
 		System.out.println(json);

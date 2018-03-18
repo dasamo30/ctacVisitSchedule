@@ -9,6 +9,7 @@ import com.ctac.bean.OccupationBean;
 import com.ctac.bean.ReasonVisitBean;
 import com.ctac.bean.VisitScheduleBean;
 import com.ctac.bean.VisitorBean;
+import com.ctac.bean.VisitorLogBean;
 import com.ctac.dao.DAOFactory;
 import com.ctac.dao.IVisitDAO;
 
@@ -103,5 +104,12 @@ public class ServiceVisit {
 	
 	public ArrayList<OccupationBean> selectOccupationBean(){
 		return visitDAO.selectOccupationBean();
+	}
+	
+	public int insertVisitorLog(VisitorLogBean visitorLog) {
+		return visitDAO.insertVisitorLog(visitorLog);
+	}
+	public ArrayList<VisitorLogBean> selectVisitorLog(int id_visit_schedule){
+		return visitDAO.selectVisitorLog(id_visit_schedule);
 	}
 }

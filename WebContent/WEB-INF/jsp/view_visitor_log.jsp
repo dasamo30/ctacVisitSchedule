@@ -140,7 +140,39 @@
                     </div><!-- /.comment-text -->
                   </div><!-- /.box-comment -->
                   <div class='box-comment'>
-                    <form action="">
+                    <div class="row">
+            <div class="col-xs-12 table-responsive">
+                  <table class="table table-striped" id="tbRegister" style="display:none;">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Badge</th>
+                      <th>Date</th>
+                      <th>Hour</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-light-blue">
+                    <td><span class="label label-success">Ingreso</span></td>
+                      <td>232323-23-2323</td>
+                      <td>11-7-2014</td>
+                     <td>2:45</td>
+                    </tr>
+                    <tr class="text-light-blue">
+                    <td><span class="label label-primary"> Salida </span></td>
+                      <td>232323-23-2323</td>
+                      <td>11-7-2014</td>
+                      <td>2:45</td>
+                    </tr>
+                    </tbody>
+                  </table>
+<!--               </div>/.box -->
+            </div>
+          </div>
+                  </div><!-- /.box-comment -->
+                </div><!-- /.box-footer -->
+                <div class="box-footer">
+                <form id="frmRegisterVisit" id="frmRegisterVisit" role="form" data-options="{ id_visit_schedule : 15, type : 1 }" >
                     <section class="col-md-5 col-print-3">                          
                        <div class="form-group form-horizontal">
                       <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
@@ -149,15 +181,12 @@
                       Badge
                       </label>
                       <div class="col-sm-9 input-group input-group-sm">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="Badge" required >
+                        <input type="text" class="form-control" id="inputEmail3" name="badge_number" placeholder="Badge" required >
                       </div>
                     </div>
 	                </section>
-                     <button type="submit" class="btn btn-success pull-right">Generate Income</button>
+                     
                      </form>
-                  </div><!-- /.box-comment -->
-                </div><!-- /.box-footer -->
-                <div class="box-footer">
                  <div id="msjSearchVisit" ></div>
                 </div><!-- /.box-footer -->
             </div><!-- /.box -->
@@ -190,6 +219,11 @@
     <script src="${contextPath}/plugins/blockUI/jquery.blockUI.js"></script>
     <!-- iCheck 1.0.1 -->
     <script src="${contextPath}/plugins/iCheck/icheck.min.js"></script>
+    <!-- serializejson -->
+    <script src="${contextPath}/plugins/json/jquery.serializejson.js"></script>
+    <!-- DataTables -->
+    <script src="${contextPath}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="${contextPath}/plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<!-- funcion general -->
     <script src="${contextPath}/js/functions.js"></script>
     <!-- visitorLog -->
