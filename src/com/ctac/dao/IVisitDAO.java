@@ -38,7 +38,8 @@ public interface IVisitDAO {
 	public ArrayList<VisitScheduleBean> selectVisitSchedule();
 	public VisitScheduleBean selectVisitScheduleById(int id_visit_schedule);
 	
-	public VisitScheduleBean selectVisitScheduleByIdByVisitor(String codeorname);
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByNameVisitor(String name);
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByidVisitor(int id_visitor);
 	
 	public ArrayList<DepartmentBean> selectDepartmentBean();
 	public ArrayList<OccupationBean> selectOccupationBean();

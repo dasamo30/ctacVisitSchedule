@@ -9,6 +9,38 @@ jQuery(document).ready( function () {
             return false;
         }
        e.preventDefault();
+       frm=$(this);
+      
+
+    	//$("#boxVisits").append('<button id="btnregiter" type="submit" class="btn btn-success pull-right "><i class="fa  fa-sign-in"></i> Generate Income</button>')
+        //return;
+       $.ajax({
+            type: "POST",
+            url: baseurl+"/visitorLog/ActSearchVisit",
+            //contentType: 'application/text',
+            //data:JSON.stringify(frm.serializeJSON()),
+            data:frm.serialize(),
+            success: function(data){
+           
+            	$("#divListVisits").html(data);
+                frm.trigger('reset');
+              
+                
+            },
+            error: function() {
+                //estableceAlerta("#msj_urs","errors","A ocurrido un error interno !!!");
+                console.log("errorr");
+                //alerts(3,msj,"A ocurrido un error interno !!!");
+            } 
+        });
+    });
+	
+	$(document).on("submit","#fomrSearchVisit222",function(e){    
+	      
+        if (e.isDefaultPrevented()) {
+            return false;
+        }
+       e.preventDefault();
        $("#divdataVisit").hide();
        frm=$(this);
       
@@ -26,8 +58,8 @@ jQuery(document).ready( function () {
     	$( "#tbRegister tbody tr" ).each( function(){
     		  this.parentNode.removeChild( this ); 
     		});
-        
-        //return;
+    	$("#boxVisits").append('<button id="btnregiter" type="submit" class="btn btn-success pull-right "><i class="fa  fa-sign-in"></i> Generate Income</button>')
+        return;
        $.ajax({
             type: "POST",
             url: baseurl+"/visitorLog/ActSearchVisit",
@@ -111,10 +143,10 @@ jQuery(document).ready( function () {
         });
     });
 	
-	$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-        checkboxClass: 'icheckbox_flat-green',
-        radioClass: 'iradio_flat-green'
-      });
+//	$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+//        checkboxClass: 'icheckbox_flat-green',
+//        radioClass: 'iradio_flat-green'
+//      });
 	
 	
 	
@@ -177,5 +209,47 @@ jQuery(document).ready( function () {
            }
        });
 	});
+	
+	
+	 $('#cboVisitSearch').select2({
+	        placeholder: 'Select an item',
+	        minimumInputLength: 2,
+	        allowClear: true,
+	        ajax: {
+	          type: "POST",   
+	          url: baseurl+"/visitorLog/searchByName",
+	          dataType: 'json',
+	          delay: 250,
+	          data: function (params) {
+
+	            var queryParameters = {
+	                term: params.term
+	            };
+	            return queryParameters;
+	        },
+	        processResults: function (data) {
+	            return {
+	                results: $.map(data, function (item) {
+	                    return {
+	                        text: item.full_name_visitor+" - "+item.company_name,
+	                        id: item.id_visitor 
+	                        
+	                    };
+	                })
+	            };
+	        },
+	          cache: true
+	        }
+	      });/*.on("change", function () {
+	         // console.log($(this));
+	        //var str = $("#s2id_search_code .select2-choice span").text();
+	         var data = $(this).select2('data')[0];
+	        console.log(data); 
+	         if(data){
+	         //$("#txtPriceProduct").val(data.sellPrice);
+	         //$("#txtAmountProduct").val(1);
+	         //$("#txtProductId").val(data.idProduct);
+	         }
+	      });*/
 });
 	

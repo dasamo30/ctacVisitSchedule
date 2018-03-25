@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="${contextPath}/dist/css/skins/_all-skins.min.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="${contextPath}/plugins/iCheck/all.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="${contextPath}/plugins/select2/select2.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -81,16 +83,17 @@
 
           <!-- Main content -->
           <section class="content">
-            <div class="box box-primary">
+            <div class="box box-primary" id="boxVisits">
               <div class="box-header with-border">
                 <h3 class="box-title">Consultar visitas</h3>
               </div>
               <div class="box-body">
                 <form data-toggle="validator" id="fomrSearchVisit" role="form">
                 <div class="form-group form-horizontal">
-                   <label for="txtvisit" class="col-sm-2 control-label" style="width: auto;">Number or Name </label>
+                   <label for="cboVisitSearch" class="col-sm-2 control-label" style="width: auto;">Number or Name </label>
                       <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" id="txtvisit" name="codeorname" required >
+                      <select  id="cboVisitSearch" class="form-control select2" name="id_visitor"  style="position:absolute; width: 100%;"  required ></select>
+<!--                     <input type="text" class="form-control" id="txtvisit" name="codeorname" required > -->
                     <span class="input-group-btn">
                       <button class="btn btn-info btn-flat" type="submit">Search!</button>
                     </span>
@@ -99,96 +102,7 @@
                     </div>
                   </form>
               </div><!-- /.box-body -->
-              <div id="divdataVisit" class='box-footer box-comments'style="display: none;">
-              	
-                  <div class='box-comment'>
-                    <!-- User image -->
-                    <img class='img-circle img' src='${contextPath}/images/icono_calendari_visita.png' alt='user image'>
-                    <div class='comment-text'>
-                      <span class="username">
-                        <h4 class="box-title" style="margin-top: 5px;" >About visit data</h4>
-                        <!-- <span class='text-muted pull-right'>8:03 PM Today</span> -->
-                      </span>
-                      <div class="col-sm-4 invoice-col">
-              Visitor
-              <address>
-                <strong id="full_name_visitor"></strong><br>
-                Company: <span id="company_name"></span><br>
-                ID: <span id="idNumber"></span><br>
-                citizen ship: <span id="citizen_ship"></span><br>
-                Phone: <span id="phone_number"></span><br>
-                Email: <span id="email"></span>
-              </address>
-            </div><!-- /.col -->
-            <div class="col-sm-4 invoice-col">
-              Employe
-              <address>
-                <strong id="full_name_employee"></strong><br>
-                occupation: <span id="occupation_employee"></span><br>
-              </address>
-            </div><!-- /.col -->
-            <div class="col-sm-4 invoice-col">
-            Visit
-            <address>
-              <b id="id_visit_schedule"> </b><br>
-              <b>Reason:</b> <span id="reasons_name"></span><br>
-              <b>Date hour:</b><span id="date_hour"></span><br>
-               <b>Department:</b><span id="department_name"></span><br>
-              <!--<b>Account:</b> 968-34567-->
-              </address>
-            </div><!-- /.col -->
-                    </div><!-- /.comment-text -->
-                  </div><!-- /.box-comment -->
-                  <div class='box-comment'>
-                    <div class="row">
-            <div class="col-xs-12 table-responsive">
-                  <table class="table table-striped" id="tbRegister" style="display:none;">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Badge</th>
-                      <th>Date</th>
-                      <th>Hour</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="text-light-blue">
-                    <td><span class="label label-success">Ingreso</span></td>
-                      <td>232323-23-2323</td>
-                      <td>11-7-2014</td>
-                     <td>2:45</td>
-                    </tr>
-                    <tr class="text-light-blue">
-                    <td><span class="label label-primary"> Salida </span></td>
-                      <td>232323-23-2323</td>
-                      <td>11-7-2014</td>
-                      <td>2:45</td>
-                    </tr>
-                    </tbody>
-                  </table>
-<!--               </div>/.box -->
-            </div>
-          </div>
-                  </div><!-- /.box-comment -->
-                </div><!-- /.box-footer -->
-                <div class="box-footer">
-                <form id="frmRegisterVisit" id="frmRegisterVisit" role="form" data-options="{ id_visit_schedule : 15, type : 1 }" >
-                    <section class="col-md-5 col-print-3">                          
-                       <div class="form-group form-horizontal">
-                      <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
-                      
-                       <input type="checkbox" class="flat-red" checked>
-                      Badge
-                      </label>
-                      <div class="col-sm-9 input-group input-group-sm">
-                        <input type="text" class="form-control" id="inputEmail3" name="badge_number" placeholder="Badge" required >
-                      </div>
-                    </div>
-	                </section>
-                     
-                     </form>
-                 <div id="msjSearchVisit" ></div>
-                </div><!-- /.box-footer -->
+              <div id="divListVisits"></div>
             </div><!-- /.box -->
           </section><!-- /.content -->
         </div><!-- /.container -->
@@ -221,6 +135,8 @@
     <script src="${contextPath}/plugins/iCheck/icheck.min.js"></script>
     <!-- serializejson -->
     <script src="${contextPath}/plugins/json/jquery.serializejson.js"></script>
+     <!-- Select2 -->
+    <script src="${contextPath}/plugins/select2/select2.full.min.js"></script>
     <!-- DataTables -->
     <script src="${contextPath}/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="${contextPath}/plugins/datatables/dataTables.bootstrap.min.js"></script>

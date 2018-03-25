@@ -94,8 +94,11 @@ public class ServiceVisit {
 		return visitDAO.selectVisitScheduleById(id_visit_schedule);
 	}
 	
-	public VisitScheduleBean selectVisitScheduleByIdByVisitor(String codeorname) {
-		return visitDAO.selectVisitScheduleByIdByVisitor(codeorname);
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByNameVisitor(String name){
+		return visitDAO.selectVisitScheduleByNameVisitor(name);
+	}
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByidVisitor(int id_visitor){
+		return visitDAO.selectVisitScheduleByidVisitor(id_visitor);
 	}
 	
 	public ArrayList<DepartmentBean> selectDepartmentBean(){

@@ -637,8 +637,9 @@ jQuery(document).ready( function () {
 	            $("#cboDepartment").select2({
 	    		    placeholder: "Select a Department"
 	            });
-	            $('#containerDateIni').datetimepicker({
-	            	format: 'DD-MM-YYYY'
+	            $('#containerDateIni,#containerDateFin').datetimepicker({
+	            	//format: 'DD-MM-YYYY'
+	            	format: 'YYYY-MM-DD'
 	            	//minDate: moment(1, 'h')
 	            });
 	            
@@ -803,7 +804,9 @@ jQuery(document).ready( function () {
 	        { "mData": "call_cod"},
 	        { "mData": "full_name_visitor" },
 	        { "mData": "company_name" },
-	        { "mData": "date_hour" },
+	        { "mData": "date_ini" },
+	        { "mData": "date_end" },
+	        { "mData": "hour" },
 	        { "mData": "full_name_employee" },
 	        { "mData":null,
 	            "bSortable": false,
@@ -823,4 +826,6 @@ jQuery(document).ready( function () {
 	        
 	        ] 
 	    });
+	 
+	 
 });
