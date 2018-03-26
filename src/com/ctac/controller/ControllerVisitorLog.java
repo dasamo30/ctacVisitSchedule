@@ -121,7 +121,7 @@ public class ControllerVisitorLog {
 			visitorLog.setType((short) 3);
 			
 		}*/
-		//rpta=serviceVisit.insertVisitorLog(myObjects);
+		rpta=serviceVisit.insertVisitorLog(myObjects);
 		
 		
 		return rpta;

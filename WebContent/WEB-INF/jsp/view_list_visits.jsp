@@ -119,7 +119,7 @@
                       type
                       </label>
                       <div class="input-group input-group-sm">
-                        <select id="id_type" name="id_type" class="form-control" required>
+                        <select id="cboType" name="id_type" class="form-control" required>
                         <option></option>
                         <option value="1">Ingreso</option>
                         <option value="2">Salida</option>

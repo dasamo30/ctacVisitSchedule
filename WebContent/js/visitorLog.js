@@ -165,10 +165,12 @@ jQuery(document).ready( function () {
       var listVisit = []; 
        
       var badge_number=$("#badge_number").val();
+      var cboType=$("#cboType").val();
+      var cboReason=$("#cboReason").val();
       visits.each(function(i, e) {
     	   console.log($(this).val());
     	   
-    	   listVisit.push({ "id_visit_schedule": $(this).val() , "type": "2", "badge_number":badge_number });
+    	   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType, "reason":cboReason });
            //cities.push(obj);
        });
 

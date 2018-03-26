@@ -1004,6 +1004,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	public int insertVisitorLog(List<VisitorLogBean> listVisitorLog) {
 		
 		// TODO Auto-generated method stub
+		Date date =Calendar.getInstance().getTime();
 		int rpta = -1;
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
@@ -1011,15 +1012,17 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			tx = session.beginTransaction();
 			
 			for (VisitorLogBean visitorLog : listVisitorLog) {
+				visitorLog.setRegistration_date(date);
 				
 			String sql = "INSERT INTO visits.visitor_log(\n" + 
-					"            id_visit_schedule, badge_number, type, registration_date)\n" + 
-					"    VALUES ( :id_visit_schedule , :badge_number , :type , :registration_date );";
+					"            id_visit_schedule, badge_number, type, registration_date, reason)\n" + 
+					"    VALUES ( :id_visit_schedule , :badge_number , :type , :registration_date, :reason );";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.setParameter("id_visit_schedule", visitorLog.getId_visit_schedule());
 			query.setParameter("badge_number", visitorLog.getBadge_number());
 			query.setParameter("type", visitorLog.getType());
 			query.setParameter("registration_date", visitorLog.getRegistration_date());
+			query.setParameter("reason", visitorLog.getReason());
 			int result =query.executeUpdate();
 			
 			System.out.println("resultdet.executeUpdate:: "+result);
