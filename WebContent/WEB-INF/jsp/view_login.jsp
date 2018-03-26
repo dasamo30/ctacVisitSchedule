@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : 01-jun-2016, 17:34:48
-    Author     : dasamo
+    Author     : Ricardo
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
@@ -41,16 +41,16 @@
                 </h3>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Inicia sesión para ingresar</p>
+        <p class="login-box-msg">Signing in to your acount</p>
         <!-- <img class="img-responsive" src="${contextPath}/images/ATI-logo2017.png" alt="Photo">-->
         <form action="validatelogin" name="usuarioBean" method="post" data-toggle="validator">
           <div class="form-group has-feedback">
-              <input type="text" class="form-control" placeholder="Usuario" name="login" required >
+              <input type="text" class="form-control" placeholder="User" name="login" required >
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
             <div class="help-block with-errors"></div>
           </div>
           <div class="form-group has-feedback">
-              <input type="password" class="form-control" placeholder="Contraseña" name="clave" required >
+              <input type="password" class="form-control" placeholder="Password" name="clave" required >
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             <div class="help-block with-errors"></div>
           </div>
@@ -64,7 +64,7 @@
               </div>
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat btn-sm">Ingresar</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat btn-sm">Log In</button>
             </div><!-- /.col -->
           </div>
         </form>

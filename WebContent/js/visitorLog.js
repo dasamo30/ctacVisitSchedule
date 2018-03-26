@@ -130,7 +130,7 @@ jQuery(document).ready( function () {
                     //loadDataTable("#tbCompany");
                     frm.trigger('reset');
                 }else{
-                    alerts(2,msj,"No cuenta con una visita programada para el dia de hoy");
+                    alerts(2,msj,"You do not have a scheduled visit for today");
                 }
                 
                 
@@ -138,7 +138,7 @@ jQuery(document).ready( function () {
             error: function() {
                 //estableceAlerta("#msj_urs","errors","A ocurrido un error interno !!!");
                 
-                alerts(3,msj,"A ocurrido un error interno !!!");
+                alerts(3,msj,"An internal error has occurred !!!");
             } 
         });
     });

@@ -1,7 +1,7 @@
 <%-- 
     Document   : view_panel_usuarios
     Created on : 17-feb-2017, 11:46:17
-    Author     : dasamo
+    Author     : Ricardo
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 

@@ -16,7 +16,7 @@
                 <div class="box-header with-border">
                     <!-- Link trigger modal -->
                     <a href="${contextPath}/visit/company/ActViewCompany" data-toggle="modal" data-target="#myModalViewCompany" data-remote="false" class="btn btn-primary">
-                        new company
+                        New Company
                     </a>
                 </div><!-- /.box-header -->
                 <!-- form start -->
