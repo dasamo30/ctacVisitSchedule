@@ -1,7 +1,7 @@
 <%-- 
     Document   : view_panel
     Created on : 02-jun-2016, 12:01:03
-    Author     : dasamo
+    Author     : Ricardo
 --%>
 
 <%@include file="view_panel_header.jsp" %>
