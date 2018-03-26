@@ -1127,7 +1127,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 					"-- and  \n" + 
 					"cast( :datev as date) BETWEEN cast(a.date_ini as date) AND cast(a.date_end as date)  \n" + 
 					"and	  \n" + 
-					"b.full_name= :name ";
+					"LOWER(b.full_name)= LOWER(:name) ";
 			SQLQuery query = session.createSQLQuery(e);
 			query.setParameter("name", name);
 			query.setParameter("datev", date);
