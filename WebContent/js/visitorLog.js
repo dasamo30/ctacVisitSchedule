@@ -162,48 +162,55 @@ jQuery(document).ready( function () {
        var visits=$('.ids:checked');
        
        console.log(visits.length)
-      var listVisit = []; 
+    
        
       var badge_number=$("#badge_number").val();
       var cboType=$("#cboType").val();
       var cboReason=$("#cboReason").val();
+      
+      console.log(visits.val());
+      //var data = $(form).serializeArray();
+      
+
+      var dataJson =frm.serializeJSON();
+      //dataJson.push({name: 'id_visit_schedule', value: '1'});
+      
+      
+      console.log(dataJson);
+      
+      listVisit = new Array();
+      
       visits.each(function(i, e) {
-    	   console.log($(this).val());
+    	  console.log($(this).val());
     	   
-    	   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType, "reason":cboReason });
+    	   //var data2=dataJson;
+    	   //data2['id_visit_schedule'] = $(this).val();
+    	   console.log($('#checkbadge').is(":checked"))
+    	   if($('#checkbadge').is(":checked")){
+    		   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType});
+    	   }else{
+    		   listVisit.push({ "id_visit_schedule": $(this).val() , "type": cboType, "reason":cboReason });
+    	   }
+    	   //var frm=Object.assign(dataJson, {id_visit_schedule:$(this).val()});
+    	   
+    	  //listVisit.push(data2);
+    	  
+    	  //console.log(listVisit);
+    	  //console.log($(this).val()+"--------------------------------")
            //cities.push(obj);
        });
 
-       
-       console.log(JSON.stringify(listVisit));
-       
-      var dataoption =frm.data('options');
-       //console.log(frm.data('options'));
-      //var obj = $.parseJSON(frm.data('options'));
-       //console.log(obj);
-       
-       var dataJson =frm.serializeArray();
-       //dataJson.push({name:"id_visit_schedule", value: dataoption.id_visit_schedule });
-       //dataJson.push({name:"type", value:  dataoption.type });
-       
-       //data.add({ type: 'text' });
-       //console.log(serializeToJson(frm.serializeArray()));
-       //data.push({id_visit_schedule: 1, type: 2});
-       console.log(dataJson);
-       
-       //return;
+      //listVisit.push({ "id_visit_schedule": 25, "badge_number":badge_number , "type": cboType, "reason":cboReason });
+       console.log(listVisit);
+
+     //  return;
        $.ajax({
     	   type: "POST",
            url: baseurl+"/visitorLog/ActRegisterVisit",
            //dataType: "html",          
-           //contentType: 'application/json; charset=utf-8',
-           //mimeType: 'application/json',
-           //data:{ visitorLogs: JSON.stringify(listVisit)},//JSON.stringify(data),
-            //data :JSON.stringify({ 'listObject': listVisit}), 
-           data:{ listObject: JSON.stringify(listVisit)},
-           
-            //data:{visitorLogs : JSON.stringify(listVisit)},
-           //data:JSON.stringify(frm.serializeJSON()),
+           contentType: 'application/json',
+           data:JSON.stringify(listVisit),
+           //data:{ listObject: JSON.stringify(listVisit)},
            success: function(result){
         	   
         	   	console.log(result);
@@ -214,6 +221,10 @@ jQuery(document).ready( function () {
         	   		ezBSAlert({ headerText:"success", messageText:text, alertType: "success"});
         	   		
         	   		$("#divListVisits").html("");
+        	   		//$("#cboVisitSearch").empty().trigger('change');
+        	   		$('#cboVisitSearch').val(null).trigger('change');
+        	   		//$('#cboVisitSearch').select2('val', '');
+
         	   		//$('#btnregiter').remove();
         	   		//$("#frmRegisterVisit").hide();
         	   		//$("#divdataVisit").hide();
@@ -232,6 +243,31 @@ jQuery(document).ready( function () {
        });
 	});
 	
+	 //$('#checkbadge').change(function() {
+     $(document).on("change","#checkbadge",function(e){	 
+  	   //$('#idnumeros').tagsinput('removeAll');
+    	 $("#badge_number").val("");
+    	 $('#cboReason, #cboType').prop('selectedIndex',-1);
+    	// $('#cboReason').prop('selectedIndex',-1);
+    	 
+    	 //$('#frmRegisterVisit').trigger("reset");
+    	 
+  	   if(this.checked) {
+      	 console.log($(this).val());
+      	    //$('#form-cm').show();
+      	    $('#divReason').hide();
+      	    $('#badge_number').prop('readonly', false);
+ 	    	$("#badge_number").attr("required", "true");
+ 	    	$("#cboReason").removeAttr('required');
+         }else{
+ 	    	console.log($(this).val());
+ 	    	//$('#form-cm').hide();
+ 	    	$('#divReason').show();
+ 	    	$('#badge_number').prop('readonly', true);
+ 	    	$("#cboReason").attr("required", "true");
+ 	    	$("#badge_number").removeAttr('required');
+	    }        
+     });
 	
 	 $('#cboVisitSearch').select2({
 	        placeholder: 'Select an item',

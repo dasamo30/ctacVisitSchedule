@@ -91,23 +91,23 @@
  </c:forEach>              
                
                              <div class="box-footer">
-                <form id="frmRegisterVisit" role="form" >
+                <form id="frmRegisterVisit" role="form" autocomplete="off" >
                     <section class="col-md-12 col-print-10">                          
                     <div class="form-group form-horizontal col-md-4">
                       <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
-                       <input type="checkbox" class="flat-red" checked>
+                       <input type="checkbox" class="flat-red" id="checkbadge" checked>
                       Badge
                       </label>
                       <div class="input-group input-group-sm">
                         <input type="text" class="form-control" id="badge_number" name="badge_number" placeholder="Badge" required >
                       </div>
                     </div>
-                    <div class="form-group form-horizontal col-md-3">
+                    <div class="form-group form-horizontal col-md-3" id="divReason" style="display: none;" >
                       <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
                       Reason
                       </label>
                       <div class="input-group input-group-sm">
-                        <select id="cboReason" name="reason" class="form-control">
+                        <select id="cboReason" name="reason" class="form-control" >
                         <option></option>
                         <option value="1">Ingreso Temporal</option>
                         <option value="2">Perdidad de Badge</option>

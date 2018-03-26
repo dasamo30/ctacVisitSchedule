@@ -99,7 +99,17 @@ public class ControllerVisitorLog {
 	
 	@RequestMapping(value = {"/visitorLog/ActRegisterVisit"}, method = {RequestMethod.POST})
 	@ResponseBody
-	public int ActRegisterVisit(@ModelAttribute("listObject") String listObject) throws JsonParseException, JsonMappingException, IOException {//List<ListName> listObject
+	public int ActRegisterVisit(@RequestBody List<VisitorLogBean> listVisit) {
+		int rpta=-1;
+		System.out.println("count:"+listVisit.size());
+		System.out.println(":::::::::::::::::::"+listVisit.toString());
+		
+		rpta=serviceVisit.insertVisitorLog(listVisit);
+		return rpta;
+	}
+	@RequestMapping(value = {"/visitorLog/ActRegisterVisit222"}, method = {RequestMethod.POST})
+	@ResponseBody
+	public int ActRegisterVisit222(@ModelAttribute("listObject") String listObject) throws JsonParseException, JsonMappingException, IOException {//List<ListName> listObject
 		Date date =Calendar.getInstance().getTime();
 		
 		System.out.println(listObject.toString());
