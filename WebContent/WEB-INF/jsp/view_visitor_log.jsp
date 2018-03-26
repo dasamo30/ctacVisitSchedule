@@ -90,7 +90,7 @@
               <div class="box-body">
                 <form data-toggle="validator" id="fomrSearchVisit" role="form">
                 <div class="form-group form-horizontal">
-                   <label for="cboVisitSearch" class="col-sm-2 control-label" style="width: auto;">Number or Name </label>
+                   <label for="cboVisitSearch" class="col-sm-2 control-label" style="width: auto;">Full Name Visit </label>
                       <div class="input-group input-group-sm">
                       <select  id="cboVisitSearch" class="form-control select2" name="id_visitor"  style="position:absolute; width: 100%;"  required ></select>
 <!--                     <input type="text" class="form-control" id="txtvisit" name="codeorname" required > -->
