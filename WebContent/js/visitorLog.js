@@ -213,6 +213,7 @@ jQuery(document).ready( function () {
         	   		 '<p class="text-center">successful</p>';
         	   		ezBSAlert({ headerText:"success", messageText:text, alertType: "success"});
         	   		
+        	   		$("#divListVisits").html("");
         	   		//$('#btnregiter').remove();
         	   		//$("#frmRegisterVisit").hide();
         	   		//$("#divdataVisit").hide();
