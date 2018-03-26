@@ -1,14 +1,21 @@
 package com.ctac.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -92,9 +99,21 @@ public class ControllerVisitorLog {
 	
 	@RequestMapping(value = {"/visitorLog/ActRegisterVisit"}, method = {RequestMethod.POST})
 	@ResponseBody
-	public int ActRegisterVisit(@ModelAttribute VisitorLogBean visitorLog) {
+	public int ActRegisterVisit(@ModelAttribute("listObject") String listObject) throws JsonParseException, JsonMappingException, IOException {//List<ListName> listObject
 		Date date =Calendar.getInstance().getTime();
-		visitorLog.setRegistration_date(date);
+		
+		System.out.println(listObject.toString());
+		ObjectMapper a=new ObjectMapper();
+		List<VisitorLogBean> myObjects = Arrays.asList(a.readValue(listObject, VisitorLogBean[].class));
+		
+		System.out.println("tamoño:"+myObjects.size());
+		
+		System.out.println("ActRegisterVisit: "+myObjects.toString());
+
+
+
+		//visitorLog.setRegistration_date(date);
+		int rpta=-1;
 		/*
 		if(visitorLog.getType()==1) {
 			visitorLog.setType((short) 2);
@@ -102,10 +121,9 @@ public class ControllerVisitorLog {
 			visitorLog.setType((short) 3);
 			
 		}*/
-		int rpta=serviceVisit.insertVisitorLog(visitorLog);
+		//rpta=serviceVisit.insertVisitorLog(myObjects);
 		
 		
-		System.out.println("ActRegisterVisit: "+visitorLog.toString());
 		return rpta;
 	}
 	

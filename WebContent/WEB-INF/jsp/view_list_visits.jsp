@@ -51,7 +51,7 @@
             <div class="col-sm-1 invoice-col">
             <address>
               <br><br><br>	
-              <b id="id_visit_schedule"><input type="checkbox" checked="checked"></b>
+              <b id="id_visit_schedule"><input type="checkbox" checked="checked"  class="ids" name="ids[]" value="${visitSchedule.id_visit_schedule}" ></b>
               </address>
             </div>
             <!-- /.col -->
@@ -89,24 +89,47 @@
 <!--                   </div> -->
                 </div><!-- /.box-footer -->
  </c:forEach>              
-                <div class="box-footer">
-                <div class="row" id="divQueryVisit">
-                <form id="frmRegisterVisit" role="form" data-options="{ id_visit_schedule : 15, type : 1 }" >
-                    <section class="col-md-5 col-print-3">                          
-                       <div class="form-group form-horizontal">
+               
+                             <div class="box-footer">
+                <form id="frmRegisterVisit" role="form" >
+                    <section class="col-md-12 col-print-10">                          
+                    <div class="form-group form-horizontal col-md-4">
                       <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
-                      
                        <input type="checkbox" class="flat-red" checked>
                       Badge
                       </label>
-                      <div class="col-sm-9 input-group input-group-sm">
-                        <input type="text" class="form-control" id="inputEmail3" name="badge_number" placeholder="Badge" required >
+                      <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" id="badge_number" name="badge_number" placeholder="Badge" required >
                       </div>
                     </div>
+                    <div class="form-group form-horizontal col-md-3">
+                      <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
+                      Reason
+                      </label>
+                      <div class="input-group input-group-sm">
+                        <select id="cboReason" name="reason" class="form-control">
+                        <option></option>
+                        <option value="1">Ingreso Temporal</option>
+                        <option value="2">Perdidad de Badge</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group form-horizontal col-md-3">
+                      <label for="inputEmail3" class="col-sm-2 control-label" style="width: auto;">
+                      type
+                      </label>
+                      <div class="input-group input-group-sm">
+                        <select id="id_type" name="id_type" class="form-control" required>
+                        <option></option>
+                        <option value="1">Ingreso</option>
+                        <option value="2">Salida</option>
+                        </select>
+                      </div>
+                    </div>
+                    <button id="btnregiter" type="submit" class="btn btn-success pull-right"><i class="fa  fa-sign-in"></i> Register Visit</button>  
 	                </section>
-	                <button id="btnregiter" type="submit" class="btn btn-success"><i class="fa  fa-sign-in"></i> Register Visit</button>  
+	                
                      </form>
-                     </div>
                  <div id="msjSearchVisit" ></div>
                 </div><!-- /.box-footer -->
                 

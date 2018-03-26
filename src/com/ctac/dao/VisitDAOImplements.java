@@ -1001,7 +1001,8 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 
 
 	@Override
-	public int insertVisitorLog(VisitorLogBean visitorLog) {
+	public int insertVisitorLog(List<VisitorLogBean> listVisitorLog) {
+		
 		// TODO Auto-generated method stub
 		int rpta = -1;
 		Transaction tx = null;
@@ -1009,6 +1010,8 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		try {
 			tx = session.beginTransaction();
 			
+			for (VisitorLogBean visitorLog : listVisitorLog) {
+				
 			String sql = "INSERT INTO visits.visitor_log(\n" + 
 					"            id_visit_schedule, badge_number, type, registration_date)\n" + 
 					"    VALUES ( :id_visit_schedule , :badge_number , :type , :registration_date );";
@@ -1032,6 +1035,8 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			int result2 =query2.executeUpdate();
 			
 			System.out.println("resultdet.executeUpdate:: "+result2);
+			
+			}
 			
 			 if (!tx.wasCommitted()){
 	                tx.commit();

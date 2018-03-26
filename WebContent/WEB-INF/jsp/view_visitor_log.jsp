@@ -102,6 +102,7 @@
                     </div>
                   </form>
               </div><!-- /.box-body -->
+
               <div id="divListVisits"></div>
             </div><!-- /.box -->
           </section><!-- /.content -->

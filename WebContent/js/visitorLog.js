@@ -157,14 +157,23 @@ jQuery(document).ready( function () {
        e.preventDefault();
        
        frm=$(this);
-       /*
-         id_visit_schedule bigint NOT NULL,
-  			badge_number character varying(50),
-  			type smallint NOT NULL,
-        */
-       //console.log(frm.serializeObject());
        
-       //return false;
+       //var ids = [];
+       var visits=$('.ids:checked');
+       
+       console.log(visits.length)
+      var listVisit = []; 
+       
+      var badge_number=$("#badge_number").val();
+      visits.each(function(i, e) {
+    	   console.log($(this).val());
+    	   
+    	   listVisit.push({ "id_visit_schedule": $(this).val() , "type": "2", "badge_number":badge_number });
+           //cities.push(obj);
+       });
+
+       
+       console.log(JSON.stringify(listVisit));
        
       var dataoption =frm.data('options');
        //console.log(frm.data('options'));
@@ -172,19 +181,26 @@ jQuery(document).ready( function () {
        //console.log(obj);
        
        var dataJson =frm.serializeArray();
-       dataJson.push({name:"id_visit_schedule", value: dataoption.id_visit_schedule });
-       dataJson.push({name:"type", value:  dataoption.type });
+       //dataJson.push({name:"id_visit_schedule", value: dataoption.id_visit_schedule });
+       //dataJson.push({name:"type", value:  dataoption.type });
        
        //data.add({ type: 'text' });
        //console.log(serializeToJson(frm.serializeArray()));
        //data.push({id_visit_schedule: 1, type: 2});
        console.log(dataJson);
+       
+       //return;
        $.ajax({
     	   type: "POST",
            url: baseurl+"/visitorLog/ActRegisterVisit",
-           //contentType: 'application/json',
-           //dataType: 'json',
-           data:dataJson,//JSON.stringify(data),
+           //dataType: "html",          
+           //contentType: 'application/json; charset=utf-8',
+           //mimeType: 'application/json',
+           //data:{ visitorLogs: JSON.stringify(listVisit)},//JSON.stringify(data),
+            //data :JSON.stringify({ 'listObject': listVisit}), 
+           data:{ listObject: JSON.stringify(listVisit)},
+           
+            //data:{visitorLogs : JSON.stringify(listVisit)},
            //data:JSON.stringify(frm.serializeJSON()),
            success: function(result){
         	   
@@ -195,9 +211,9 @@ jQuery(document).ready( function () {
         	   		 '<p class="text-center">successful</p>';
         	   		ezBSAlert({ headerText:"success", messageText:text, alertType: "success"});
         	   		
-        	   		$('#btnregiter').remove();
-        	   		$("#frmRegisterVisit").hide();
-        	   		$("#divdataVisit").hide();
+        	   		//$('#btnregiter').remove();
+        	   		//$("#frmRegisterVisit").hide();
+        	   		//$("#divdataVisit").hide();
         	   	}else{
         	   		text='<img src="'+baseurl+'/images/refuse.png" alt="user image" class="img-responsive center-block" > \n'+
        	   		 	'<p class="text-center">Error</p>';
@@ -205,6 +221,9 @@ jQuery(document).ready( function () {
         	   	}
            },
            error: function() {
+        	   
+        	   text='<img src="'+baseurl+'/images/refuse.png" alt="user image" class="img-responsive center-block" > \n'+
+  	   		 	'<p class="text-center">Error</p>';
         	   ezBSAlert({ headerText:"success", messageText:text, alertType: "success"});
            }
        });
