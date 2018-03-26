@@ -654,10 +654,12 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			 */
 			
 			String sql = "INSERT INTO visits.visit_schedule(\n" + 
-					"date_hour, id_company, id_employee, id_visitor, registration_date, id_usuario, id_reason, status,id_department)\n" + 
-					"VALUES (:date_hour, :id_company, :id_employee, :id_visitor, :registration_date, :id_usuario, :id_reason, :status, :id_department) RETURNING call_cod; ";
+					"date_ini, date_end, hour, id_company, id_employee, id_visitor, registration_date, id_usuario, id_reason, status,id_department)\n" + 
+					"VALUES (:date_ini, :date_end, :hour, :id_company, :id_employee, :id_visitor, :registration_date, :id_usuario, :id_reason, :status, :id_department) RETURNING call_cod; ";
 			SQLQuery query = session.createSQLQuery(sql);
-			query.setParameter("date_hour", visitSchedule.getDate_hour());
+			query.setParameter("date_ini", visitSchedule.getDate_ini());
+			query.setParameter("date_end", visitSchedule.getDate_end());
+			query.setParameter("hour", visitSchedule.getHour());
 			query.setParameter("id_company", visitSchedule.getId_company());
 			query.setParameter("id_employee", visitSchedule.getId_employee());
 			query.setParameter("id_visitor", visitSchedule.getId_visitor());
@@ -739,13 +741,13 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 
 	@Override
 	public ArrayList<VisitScheduleBean> selectVisitSchedule() {
-		Transaction tx = null;
+		//Transaction tx = null;
 		Session session = sessionFactory.openSession();
 		//ArrayList litsPerfilBean = new ArrayList();
 		ArrayList<VisitScheduleBean> listVisitSchedule=new ArrayList<>();
 		try {
 			//tx = session.beginTransaction();
-			String e = "SELECT a.id_visit_schedule, a.date_hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
+			String e = "SELECT a.id_visit_schedule, a.date_ini, a.date_end, a.hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
 					"       a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod,\n" + 
 					"       b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number,\n" + 
 					"       c.full_name as full_name_employee,\n" + 
@@ -770,7 +772,9 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	            Map row = (Map)object;
 	            VisitScheduleBean visitSchedule=new VisitScheduleBean();
 	            visitSchedule.setId_visit_schedule(((BigInteger) row.get("id_visit_schedule")).intValue());
-	            visitSchedule.setDate_hour((Date) row.get("date_hour"));
+	            visitSchedule.setDate_ini((Date) row.get("date_ini"));
+	            visitSchedule.setDate_end((Date) row.get("date_end"));
+	            visitSchedule.setHour((String) row.get("hour"));
 	            visitSchedule.setId_company((int) row.get("id_company"));
 	            visitSchedule.setId_employee((int) row.get("id_employee"));
 	            visitSchedule.setId_visitor((int) row.get("id_visitor"));
@@ -802,10 +806,13 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			/*if (tx != null) {
 				tx.rollback();
 			}*/
-
+			System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::.");
 			listVisitSchedule = null;
 			e.printStackTrace();
+			
 		} finally {
+			System.out.println(":::::::::finally::::::finally:::::::::::finally::.");
+			
 			session.close();
 		}
 
@@ -819,37 +826,37 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		return null;
 	}
 
-
+	/*
 	@Override
-	public VisitScheduleBean selectVisitScheduleByIdByVisitor(String codeorname) {
+	public VisitScheduleBean selectVisitScheduleByIdByVisitor(int id_visitor) {
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
 		VisitScheduleBean visitSchedule=null;
 		String date=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 		try {
 			//tx = session.beginTransaction();
-			String  sql= "SELECT a.id_visit_schedule, a.date_hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
-					"       a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod,\n" + 
-					"       b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number,\n" + 
-					"       c.full_name as full_name_employee,g.occupation as occupation_employee,\n" + 
-					"       d.company_name,\n" + 
-					"       e.reasons_name,\n" + 
-					"       f.department\n" + 
-					"  FROM visits.visit_schedule a\n" + 
-					"  inner join visits.visitors b on b.id_visitor=a.id_visitor\n" + 
-					"  inner join visits.employee c on c.id_employee=a.id_employee\n" + 
-					"  inner join visits.company d on d.id_company=a.id_company\n" + 
-					"  inner join visits.reasons_visit e on e.id_reason=a.id_reason\n" + 
-					"  inner join visits.department f on f.id_department=a.id_department\n" + 
-					"  inner join visits.occupation g on g.id_occupation=c.id_occupation\n" +
-					"  where\n" + 
-					//"  a.status<>3\n" + 
-					//"  and \n" + 
-					"  cast(a.date_hour as date)= cast( :datev as date) \n" + 
-					"  and	\n" + 
-					"  call_cod= :codeorname or b.full_name= :codeorname";
+			String  sql= "SELECT a.id_visit_schedule, a.date_ini, a.date_end, a.hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
+					"a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod, \n" + 
+					"b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number, \n" + 
+					"c.full_name as full_name_employee,g.occupation as occupation_employee, \n" + 
+					"d.company_name, \n" + 
+					"e.reasons_name, \n" + 
+					"f.department \n" + 
+					"  FROM visits.visit_schedule a \n" + 
+					"  inner join visits.visitors b on b.id_visitor=a.id_visitor \n" + 
+					"  inner join visits.employee c on c.id_employee=a.id_employee \n" + 
+					"  inner join visits.company d on d.id_company=a.id_company \n" + 
+					"  inner join visits.reasons_visit e on e.id_reason=a.id_reason \n" + 
+					"  inner join visits.department f on f.id_department=a.id_department \n" + 
+					"  inner join visits.occupation g on g.id_occupation=c.id_occupation\n" + 
+					"  where \n" + 
+					"  --a.status<>3 \n" + 
+					"  -- and \n" + 
+					"  cast( :datev as date) BETWEEN cast(a.date_ini as date) AND cast(a.date_end as date) \n" + 
+					"  and	 \n" + 
+					"  a.id_visitor=:id_visitor";
 			SQLQuery query = session.createSQLQuery(sql);
-			query.setParameter("codeorname", codeorname);
+			query.setParameter("id_visitor", id_visitor);
 			query.setParameter("datev", date);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List data = query.list();
@@ -858,7 +865,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 				visitSchedule=new VisitScheduleBean();
 				HashMap map = (HashMap) data.get(0);
 				visitSchedule.setId_visit_schedule(((BigInteger) map.get("id_visit_schedule")).intValue());
-				visitSchedule.setDate_hour((Date) map.get("date_hour"));
+				visitSchedule.setDate_ini((Date) map.get("date_hour"));
 				visitSchedule.setId_company((int) map.get("id_company"));
 				visitSchedule.setId_employee((int) map.get("id_employee"));
 				visitSchedule.setId_visitor((int) map.get("id_visitor"));
@@ -886,8 +893,8 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			session.close();
 		}
 		//System.out.println(visitSchedule.toString());
-		return visitSchedule;
-	}
+		return visitSchedule;String date=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+	}*/
 
 
 	@Override
@@ -931,7 +938,26 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		return listDepartment;
 	}
 
-
+	String  sql= "SELECT a.id_visit_schedule, a.date_ini, a.date_end, a.hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
+			"a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod, \n" + 
+			"b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number, \n" + 
+			"c.full_name as full_name_employee,g.occupation as occupation_employee, \n" + 
+			"d.company_name, \n" + 
+			"e.reasons_name, \n" + 
+			"f.department \n" + 
+			"  FROM visits.visit_schedule a \n" + 
+			"  inner join visits.visitors b on b.id_visitor=a.id_visitor \n" + 
+			"  inner join visits.employee c on c.id_employee=a.id_employee \n" + 
+			"  inner join visits.company d on d.id_company=a.id_company \n" + 
+			"  inner join visits.reasons_visit e on e.id_reason=a.id_reason \n" + 
+			"  inner join visits.department f on f.id_department=a.id_department \n" + 
+			"  inner join visits.occupation g on g.id_occupation=c.id_occupation\n" + 
+			"  where \n" + 
+			"  --a.status<>3 \n" + 
+			"  -- and \n" + 
+			"  cast( :datev as date) BETWEEN cast(a.date_ini as date) AND cast(a.date_end as date) \n" + 
+			"  and	 \n" + 
+			"  a.id_visitor=:id_visitor";
 	@Override
 	public ArrayList<OccupationBean> selectOccupationBean() {
 		Transaction tx = null;
@@ -975,22 +1001,28 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 
 
 	@Override
-	public int insertVisitorLog(VisitorLogBean visitorLog) {
+	public int insertVisitorLog(List<VisitorLogBean> listVisitorLog) {
+		
 		// TODO Auto-generated method stub
+		Date date =Calendar.getInstance().getTime();
 		int rpta = -1;
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
 		try {
 			tx = session.beginTransaction();
 			
+			for (VisitorLogBean visitorLog : listVisitorLog) {
+				visitorLog.setRegistration_date(date);
+				
 			String sql = "INSERT INTO visits.visitor_log(\n" + 
-					"            id_visit_schedule, badge_number, type, registration_date)\n" + 
-					"    VALUES ( :id_visit_schedule , :badge_number , :type , :registration_date );";
+					"            id_visit_schedule, badge_number, type, registration_date, reason)\n" + 
+					"    VALUES ( :id_visit_schedule , :badge_number , :type , :registration_date, :reason );";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.setParameter("id_visit_schedule", visitorLog.getId_visit_schedule());
 			query.setParameter("badge_number", visitorLog.getBadge_number());
 			query.setParameter("type", visitorLog.getType());
 			query.setParameter("registration_date", visitorLog.getRegistration_date());
+			query.setParameter("reason", visitorLog.getReason());
 			int result =query.executeUpdate();
 			
 			System.out.println("resultdet.executeUpdate:: "+result);
@@ -1006,6 +1038,8 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			int result2 =query2.executeUpdate();
 			
 			System.out.println("resultdet.executeUpdate:: "+result2);
+			
+			}
 			
 			 if (!tx.wasCommitted()){
 	                tx.commit();
@@ -1072,6 +1106,152 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			session.close();
 		}
 		return listVisitorLog;
+	}
+
+
+	@Override
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByNameVisitor(String name) {
+		Session session = sessionFactory.openSession();
+		//ArrayList litsPerfilBean = new ArrayList();
+		String date=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		ArrayList<VisitScheduleBean> listVisitSchedule=new ArrayList<>();
+		try {
+			//tx = session.beginTransaction();
+			String e = "SELECT \n" + 
+					"distinct a.id_visitor, b.full_name,d.company_name  \n" + 
+					"FROM visits.visit_schedule a  \n" + 
+					"inner join visits.visitors b on b.id_visitor=a.id_visitor  \n" + 
+					"inner join visits.company d on d.id_company=a.id_company  \n" + 
+					"where  \n" + 
+					"--a.status<>3  \n" + 
+					"-- and  \n" + 
+					"cast( :datev as date) BETWEEN cast(a.date_ini as date) AND cast(a.date_end as date)  \n" + 
+					"and	  \n" + 
+					"b.full_name= :name ";
+			SQLQuery query = session.createSQLQuery(e);
+			query.setParameter("name", name);
+			query.setParameter("datev", date);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+			
+			for(Object object : data)
+	         {
+	            Map row = (Map)object;
+	            VisitScheduleBean visitSchedule=new VisitScheduleBean();
+	            visitSchedule.setId_visitor((int) row.get("id_visitor"));
+	            visitSchedule.setFull_name_visitor((String) row.get("full_name"));
+	            visitSchedule.setCompany_name((String) row.get("company_name"));;
+	            listVisitSchedule.add(visitSchedule);
+	         }
+				
+
+			/*
+			if (!tx.wasCommitted()) {
+				tx.commit();
+			}*/
+		} catch (HibernateException e) {
+			/*if (tx != null) {
+				tx.rollback();
+			}*/
+			System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::.");
+			listVisitSchedule = null;
+			e.printStackTrace();
+			
+		} finally {
+			System.out.println(":::::::::finally::::::finally:::::::::::finally::.");
+			
+			session.close();
+		}
+
+		return listVisitSchedule;
+	}
+
+
+	@Override
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByidVisitor(int id_visitor) {
+		Session session = sessionFactory.openSession();
+		//ArrayList litsPerfilBean = new ArrayList();
+		String date=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		ArrayList<VisitScheduleBean> listVisitSchedule=new ArrayList<>();
+		try {
+			//tx = session.beginTransaction();
+			String  sql= "SELECT a.id_visit_schedule, a.date_ini, a.date_end, a.hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
+					"a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod, \n" + 
+					"b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number, \n" + 
+					"c.full_name as full_name_employee,g.occupation as occupation_employee, \n" + 
+					"d.company_name, \n" + 
+					"e.reasons_name, \n" + 
+					"f.department \n" + 
+					"  FROM visits.visit_schedule a \n" + 
+					"  inner join visits.visitors b on b.id_visitor=a.id_visitor \n" + 
+					"  inner join visits.employee c on c.id_employee=a.id_employee \n" + 
+					"  inner join visits.company d on d.id_company=a.id_company \n" + 
+					"  inner join visits.reasons_visit e on e.id_reason=a.id_reason \n" + 
+					"  inner join visits.department f on f.id_department=a.id_department \n" + 
+					"  inner join visits.occupation g on g.id_occupation=c.id_occupation\n" + 
+					"  where \n" + 
+					"  --a.status<>3 \n" + 
+					"  -- and \n" + 
+					"  cast( :datev as date) BETWEEN cast(a.date_ini as date) AND cast(a.date_end as date) \n" + 
+					"  and	 \n" + 
+					"  a.id_visitor=:id_visitor";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setParameter("id_visitor", id_visitor);
+			query.setParameter("datev", date);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+			
+			for(Object object : data)
+	         {
+	            Map row = (Map)object;
+	            VisitScheduleBean visitSchedule=new VisitScheduleBean();
+	            visitSchedule.setId_visit_schedule(((BigInteger) row.get("id_visit_schedule")).intValue());
+				visitSchedule.setDate_ini((Date) row.get("date_ini"));
+				visitSchedule.setDate_end((Date) row.get("date_end"));
+				visitSchedule.setHour((String) row.get("hour"));
+				visitSchedule.setId_company((int) row.get("id_company"));
+				visitSchedule.setId_employee((int) row.get("id_employee"));
+				visitSchedule.setId_visitor((int) row.get("id_visitor"));
+				visitSchedule.setId_usuario((int) row.get("id_usuario"));
+				visitSchedule.setId_reason((int) row.get("id_reason"));
+				visitSchedule.setId_department((int) row.get("id_department"));
+	            visitSchedule.setStatus((short) row.get("status"));
+	            visitSchedule.setRegistration_date((Date) row.get("registration_date"));
+	            visitSchedule.setFull_name_visitor((String) row.get("full_name_visitor"));
+	            visitSchedule.setNumber_license((String) row.get("number_license"));
+	            visitSchedule.setCitizen_ship((String) row.get("citizen_ship"));
+	            visitSchedule.setEmail((String) row.get("email"));
+	            visitSchedule.setPhone_number((String) row.get("phone_number"));
+	            visitSchedule.setFull_name_employee((String) row.get("full_name_employee"));
+	            visitSchedule.setOccupation_employee((String) row.get("occupation_employee"));
+	            visitSchedule.setCompany_name((String) row.get("company_name"));
+	            visitSchedule.setReasons_name((String) row.get("reasons_name"));
+	            visitSchedule.setDepartment_name((String) row.get("department"));
+	            visitSchedule.setCall_cod((String) row.get("call_cod"));
+	            
+	            listVisitSchedule.add(visitSchedule);
+	         }
+				
+
+			/*
+			if (!tx.wasCommitted()) {
+				tx.commit();
+			}*/
+		} catch (HibernateException e) {
+			/*if (tx != null) {
+				tx.rollback();
+			}*/
+			System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::.");
+			listVisitSchedule = null;
+			e.printStackTrace();
+			
+		} finally {
+			System.out.println(":::::::::finally::::::finally:::::::::::finally::.");
+			
+			session.close();
+		}
+
+		return listVisitSchedule;
 	}
 
 

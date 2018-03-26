@@ -10,8 +10,9 @@ public class VisitScheduleBean {
 	
 	private int id_visit_schedule;
 	
-	@DateTimeFormat(iso = ISO.DATE_TIME)
-	private Date date_hour;
+	//@DateTimeFormat(iso = ISO.DATE_TIME)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date date_ini;
 	private String number_badge;
 	private int id_company;
 	private int id_employee;
@@ -20,7 +21,7 @@ public class VisitScheduleBean {
 	private int id_usuario;
 	private int id_reason;
 	private int id_department;
-	private String date;
+	private Date date_end;
 	private String hour;
 	private short status;
 	private String full_name_visitor;
@@ -35,18 +36,17 @@ public class VisitScheduleBean {
 	private String department_name;
 	private String call_cod;
 	private ArrayList<VisitorLogBean>  listVisitorLog;
-	
 	public int getId_visit_schedule() {
 		return id_visit_schedule;
 	}
 	public void setId_visit_schedule(int id_visit_schedule) {
 		this.id_visit_schedule = id_visit_schedule;
 	}
-	public Date getDate_hour() {
-		return date_hour;
+	public Date getDate_ini() {
+		return date_ini;
 	}
-	public void setDate_hour(Date date_hour) {
-		this.date_hour = date_hour;
+	public void setDate_ini(Date date_ini) {
+		this.date_ini = date_ini;
 	}
 	public String getNumber_badge() {
 		return number_badge;
@@ -96,11 +96,11 @@ public class VisitScheduleBean {
 	public void setId_department(int id_department) {
 		this.id_department = id_department;
 	}
-	public String getDate() {
-		return date;
+	public Date getDate_end() {
+		return date_end;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setDate_end(Date date_end) {
+		this.date_end = date_end;
 	}
 	public String getHour() {
 		return hour;
@@ -150,6 +150,12 @@ public class VisitScheduleBean {
 	public void setFull_name_employee(String full_name_employee) {
 		this.full_name_employee = full_name_employee;
 	}
+	public String getOccupation_employee() {
+		return occupation_employee;
+	}
+	public void setOccupation_employee(String occupation_employee) {
+		this.occupation_employee = occupation_employee;
+	}
 	public String getCompany_name() {
 		return company_name;
 	}
@@ -174,31 +180,24 @@ public class VisitScheduleBean {
 	public void setCall_cod(String call_cod) {
 		this.call_cod = call_cod;
 	}
-	public String getOccupation_employee() {
-		return occupation_employee;
-	}
-	public void setOccupation_employee(String occupation_employee) {
-		this.occupation_employee = occupation_employee;
-	}
-	public ArrayList<VisitorLogBean> getVisitorLog() {
+	public ArrayList<VisitorLogBean> getListVisitorLog() {
 		return listVisitorLog;
 	}
-	public void setVisitorLog(ArrayList<VisitorLogBean> visitorLog) {
-		this.listVisitorLog = visitorLog;
+	public void setListVisitorLog(ArrayList<VisitorLogBean> listVisitorLog) {
+		this.listVisitorLog = listVisitorLog;
 	}
 	@Override
 	public String toString() {
-		return "VisitScheduleBean [id_visit_schedule=" + id_visit_schedule + ", date_hour=" + date_hour
+		return "VisitScheduleBean [id_visit_schedule=" + id_visit_schedule + ", date_ini=" + date_ini
 				+ ", number_badge=" + number_badge + ", id_company=" + id_company + ", id_employee=" + id_employee
 				+ ", id_visitor=" + id_visitor + ", registration_date=" + registration_date + ", id_usuario="
-				+ id_usuario + ", id_reason=" + id_reason + ", id_department=" + id_department + ", date=" + date
-				+ ", hour=" + hour + ", status=" + status + ", full_name_visitor=" + full_name_visitor
+				+ id_usuario + ", id_reason=" + id_reason + ", id_department=" + id_department + ", date_end="
+				+ date_end + ", hour=" + hour + ", status=" + status + ", full_name_visitor=" + full_name_visitor
 				+ ", number_license=" + number_license + ", citizen_ship=" + citizen_ship + ", email=" + email
 				+ ", phone_number=" + phone_number + ", full_name_employee=" + full_name_employee
 				+ ", occupation_employee=" + occupation_employee + ", company_name=" + company_name + ", reasons_name="
-				+ reasons_name + ", department_name=" + department_name + ", call_cod=" + call_cod + ", visitorLog="
+				+ reasons_name + ", department_name=" + department_name + ", call_cod=" + call_cod + ", listVisitorLog="
 				+ listVisitorLog + "]";
 	}
-	
 	
 }

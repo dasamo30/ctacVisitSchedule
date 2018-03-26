@@ -1,6 +1,7 @@
 package com.ctac.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ctac.bean.CompanyBean;
 import com.ctac.bean.DepartmentBean;
@@ -38,12 +39,13 @@ public interface IVisitDAO {
 	public ArrayList<VisitScheduleBean> selectVisitSchedule();
 	public VisitScheduleBean selectVisitScheduleById(int id_visit_schedule);
 	
-	public VisitScheduleBean selectVisitScheduleByIdByVisitor(String codeorname);
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByNameVisitor(String name);
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByidVisitor(int id_visitor);
 	
 	public ArrayList<DepartmentBean> selectDepartmentBean();
 	public ArrayList<OccupationBean> selectOccupationBean();
 	
-	public int insertVisitorLog(VisitorLogBean visitorLog);
+	public int insertVisitorLog(List<VisitorLogBean> listVisitorLog);
 	
 	public ArrayList<VisitorLogBean> selectVisitorLog(int id_visit_schedule);
 	

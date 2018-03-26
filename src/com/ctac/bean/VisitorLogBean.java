@@ -8,6 +8,7 @@ public class VisitorLogBean {
 	private String badge_number;
 	private short  type;
 	private Date registration_date;
+	private short reason;
 	public int getId_visit_schedule() {
 		return id_visit_schedule;
 	}
@@ -32,9 +33,17 @@ public class VisitorLogBean {
 	public void setRegistration_date(Date registration_date) {
 		this.registration_date = registration_date;
 	}
+	public short getReason() {
+		return reason;
+	}
+	public void setReason(short reason) {
+		this.reason = reason;
+	}
 	@Override
 	public String toString() {
 		return "VisitorLogBean [id_visit_schedule=" + id_visit_schedule + ", badge_number=" + badge_number + ", type="
-				+ type + ", registration_date=" + registration_date + "]";
+				+ type + ", registration_date=" + registration_date + ", reason=" + reason + "]";
 	}
+	
+	
 }

@@ -18,7 +18,13 @@
                     <a href="${contextPath}/visit/schedule/ActViewSchedule" data-toggle="modal" data-target="#myModalViewSchedule" data-remote="false" class="btn btn-primary">
                         schedule visit
                     </a>
-                </div><!-- /.box-header -->
+                </div>
+                <div class="form-group">
+                                    <label for="txtProductSearch">Product</label>
+                                    <select  id="txtProductSearch" class="form-control select2" style="width: 100%;"  required ></select>
+                                    <div class="help-block with-errors"></div>
+                                  </div>
+                <!-- /.box-header -->
                 <!-- form start -->
                 
                 <!--<div id="msjregusu" > </div>-->
@@ -59,7 +65,9 @@
                         <th>visit code</th>
                         <th>visitor</th>
                         <th>company</th>
-                        <th>date_hour</th>
+                        <th>date from</th>
+                        <th>date to</th>
+                        <th>Hour</th>
                         <th>employee</th>
                         <th>Edit</th>
                         <th>Remove</th>
@@ -70,7 +78,9 @@
                         <th>number visit</th>
                         <th>id_visitor</th>
                         <th>id_company</th>
-                        <th>date_hour</th>
+                        <th>date from</th>
+                        <th>date to</th>
+                        <th>Hour</th>
                         <th>id_employee</th>
                         <th>Edit</th>
                         <th>Remove</th>

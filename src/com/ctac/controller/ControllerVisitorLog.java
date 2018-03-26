@@ -1,14 +1,23 @@
 package com.ctac.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,22 +57,40 @@ public class ControllerVisitorLog {
 	
 	@RequestMapping(value = {"/visitorLog/ActSearchVisit"}, method = {RequestMethod.POST})
 	@ResponseBody
-	public String ActSearchVisit(@RequestParam("codeorname") String codeorname) {
+	public ModelAndView ActSearchVisit(@RequestParam("id_visitor") int id_visitor) {
+		
+		ArrayList<VisitScheduleBean> lisVisitSchedule=serviceVisit.selectVisitScheduleByidVisitor(id_visitor);
+		
+		System.out.println("count"+lisVisitSchedule.size());
+		System.out.println(lisVisitSchedule.toString());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("view_list_visits");
+		mav.addObject("lisVisitSchedule", lisVisitSchedule);
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/visitorLog/ActSearchVisit222"}, method = {RequestMethod.POST})
+	@ResponseBody
+	public String ActSearchVisit222(@RequestParam("id_visitor") int id_visitor) {
 		//CompanyBean companyBean=new CompanyBean();
 		//companyBean.setId_company(codeorname);
 		//companyBean.setStatus((short) 0);
 		//int rpta = this.serviceVisit.deleteCompany(companyBean);
+		
 		HashMap<String,Object> resul = new HashMap<String,Object>();
-		VisitScheduleBean visitSchedule=serviceVisit.selectVisitScheduleByIdByVisitor(codeorname);
+		ArrayList<VisitScheduleBean> LisVisitSchedule=serviceVisit.selectVisitScheduleByidVisitor(id_visitor);
 		int op=1;
+		/*
 		if(visitSchedule!=null) {
-		    String name1 = visitSchedule.getId_visit_schedule()+visitSchedule.getDate_hour().toString();
+		    String name1 = visitSchedule.getId_visit_schedule()+visitSchedule.getDate_ini.toString();
 		    visitSchedule.setVisitorLog(serviceVisit.selectVisitorLog(visitSchedule.getId_visit_schedule()));
 			op=0;
 			System.out.println(visitSchedule.toString());
-		}
+		}*/
+	
 		resul.put("op", op);
-		resul.put("data", visitSchedule);
+		resul.put("data", LisVisitSchedule);
 		
 		Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm:ss").create(); 
 		String json = gson.toJson(resul);
@@ -72,9 +99,21 @@ public class ControllerVisitorLog {
 	
 	@RequestMapping(value = {"/visitorLog/ActRegisterVisit"}, method = {RequestMethod.POST})
 	@ResponseBody
-	public int ActRegisterVisit(@ModelAttribute VisitorLogBean visitorLog) {
+	public int ActRegisterVisit(@ModelAttribute("listObject") String listObject) throws JsonParseException, JsonMappingException, IOException {//List<ListName> listObject
 		Date date =Calendar.getInstance().getTime();
-		visitorLog.setRegistration_date(date);
+		
+		System.out.println(listObject.toString());
+		ObjectMapper a=new ObjectMapper();
+		List<VisitorLogBean> myObjects = Arrays.asList(a.readValue(listObject, VisitorLogBean[].class));
+		
+		System.out.println("tamoño:"+myObjects.size());
+		
+		System.out.println("ActRegisterVisit: "+myObjects.toString());
+
+
+
+		//visitorLog.setRegistration_date(date);
+		int rpta=-1;
 		/*
 		if(visitorLog.getType()==1) {
 			visitorLog.setType((short) 2);
@@ -82,11 +121,28 @@ public class ControllerVisitorLog {
 			visitorLog.setType((short) 3);
 			
 		}*/
-		int rpta=serviceVisit.insertVisitorLog(visitorLog);
+		rpta=serviceVisit.insertVisitorLog(myObjects);
 		
 		
-		System.out.println("ActRegisterVisit: "+visitorLog.toString());
 		return rpta;
 	}
+	
+	@RequestMapping(value="/visitorLog/searchByName", method = RequestMethod.POST)
+    @ResponseBody
+    public ArrayList<VisitScheduleBean> searchByName(@ModelAttribute("term") @Validated String name, HttpServletRequest httpServletRequest)   {
+        
+        //System.out.println("name"+name);
+       ArrayList<VisitScheduleBean> listVisitSchedule = this.serviceVisit.selectVisitScheduleByNameVisitor(name);
+        		//serviceInventory.get_Product_Search(3, name);
+    /*
+        name
+        java.util.Date fecha = new java.util.Date(); 
+        location.setDate_creation(fecha);
+        System.out.println("location:"+location.toString());
+        return serviceInventory.registerLocation(location);*/
+        
+        return  listVisitSchedule;
+        
+    }
 
 }

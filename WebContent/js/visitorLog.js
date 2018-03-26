@@ -9,6 +9,38 @@ jQuery(document).ready( function () {
             return false;
         }
        e.preventDefault();
+       frm=$(this);
+      
+
+    	//$("#boxVisits").append('<button id="btnregiter" type="submit" class="btn btn-success pull-right "><i class="fa  fa-sign-in"></i> Generate Income</button>')
+        //return;
+       $.ajax({
+            type: "POST",
+            url: baseurl+"/visitorLog/ActSearchVisit",
+            //contentType: 'application/text',
+            //data:JSON.stringify(frm.serializeJSON()),
+            data:frm.serialize(),
+            success: function(data){
+           
+            	$("#divListVisits").html(data);
+                frm.trigger('reset');
+              
+                
+            },
+            error: function() {
+                //estableceAlerta("#msj_urs","errors","A ocurrido un error interno !!!");
+                console.log("errorr");
+                //alerts(3,msj,"A ocurrido un error interno !!!");
+            } 
+        });
+    });
+	
+	$(document).on("submit","#fomrSearchVisit222",function(e){    
+	      
+        if (e.isDefaultPrevented()) {
+            return false;
+        }
+       e.preventDefault();
        $("#divdataVisit").hide();
        frm=$(this);
       
@@ -26,8 +58,8 @@ jQuery(document).ready( function () {
     	$( "#tbRegister tbody tr" ).each( function(){
     		  this.parentNode.removeChild( this ); 
     		});
-        
-        //return;
+    	$("#boxVisits").append('<button id="btnregiter" type="submit" class="btn btn-success pull-right "><i class="fa  fa-sign-in"></i> Generate Income</button>')
+        return;
        $.ajax({
             type: "POST",
             url: baseurl+"/visitorLog/ActSearchVisit",
@@ -111,10 +143,10 @@ jQuery(document).ready( function () {
         });
     });
 	
-	$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-        checkboxClass: 'icheckbox_flat-green',
-        radioClass: 'iradio_flat-green'
-      });
+//	$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+//        checkboxClass: 'icheckbox_flat-green',
+//        radioClass: 'iradio_flat-green'
+//      });
 	
 	
 	
@@ -125,14 +157,25 @@ jQuery(document).ready( function () {
        e.preventDefault();
        
        frm=$(this);
-       /*
-         id_visit_schedule bigint NOT NULL,
-  			badge_number character varying(50),
-  			type smallint NOT NULL,
-        */
-       //console.log(frm.serializeObject());
        
-       //return false;
+       //var ids = [];
+       var visits=$('.ids:checked');
+       
+       console.log(visits.length)
+      var listVisit = []; 
+       
+      var badge_number=$("#badge_number").val();
+      var cboType=$("#cboType").val();
+      var cboReason=$("#cboReason").val();
+      visits.each(function(i, e) {
+    	   console.log($(this).val());
+    	   
+    	   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType, "reason":cboReason });
+           //cities.push(obj);
+       });
+
+       
+       console.log(JSON.stringify(listVisit));
        
       var dataoption =frm.data('options');
        //console.log(frm.data('options'));
@@ -140,19 +183,26 @@ jQuery(document).ready( function () {
        //console.log(obj);
        
        var dataJson =frm.serializeArray();
-       dataJson.push({name:"id_visit_schedule", value: dataoption.id_visit_schedule });
-       dataJson.push({name:"type", value:  dataoption.type });
+       //dataJson.push({name:"id_visit_schedule", value: dataoption.id_visit_schedule });
+       //dataJson.push({name:"type", value:  dataoption.type });
        
        //data.add({ type: 'text' });
        //console.log(serializeToJson(frm.serializeArray()));
        //data.push({id_visit_schedule: 1, type: 2});
        console.log(dataJson);
+       
+       //return;
        $.ajax({
     	   type: "POST",
            url: baseurl+"/visitorLog/ActRegisterVisit",
-           //contentType: 'application/json',
-           //dataType: 'json',
-           data:dataJson,//JSON.stringify(data),
+           //dataType: "html",          
+           //contentType: 'application/json; charset=utf-8',
+           //mimeType: 'application/json',
+           //data:{ visitorLogs: JSON.stringify(listVisit)},//JSON.stringify(data),
+            //data :JSON.stringify({ 'listObject': listVisit}), 
+           data:{ listObject: JSON.stringify(listVisit)},
+           
+            //data:{visitorLogs : JSON.stringify(listVisit)},
            //data:JSON.stringify(frm.serializeJSON()),
            success: function(result){
         	   
@@ -163,9 +213,9 @@ jQuery(document).ready( function () {
         	   		 '<p class="text-center">successful</p>';
         	   		ezBSAlert({ headerText:"success", messageText:text, alertType: "success"});
         	   		
-        	   		$('#btnregiter').remove();
-        	   		$("#frmRegisterVisit").hide();
-        	   		$("#divdataVisit").hide();
+        	   		//$('#btnregiter').remove();
+        	   		//$("#frmRegisterVisit").hide();
+        	   		//$("#divdataVisit").hide();
         	   	}else{
         	   		text='<img src="'+baseurl+'/images/refuse.png" alt="user image" class="img-responsive center-block" > \n'+
        	   		 	'<p class="text-center">Error</p>';
@@ -173,9 +223,54 @@ jQuery(document).ready( function () {
         	   	}
            },
            error: function() {
+        	   
+        	   text='<img src="'+baseurl+'/images/refuse.png" alt="user image" class="img-responsive center-block" > \n'+
+  	   		 	'<p class="text-center">Error</p>';
         	   ezBSAlert({ headerText:"success", messageText:text, alertType: "success"});
            }
        });
 	});
+	
+	
+	 $('#cboVisitSearch').select2({
+	        placeholder: 'Select an item',
+	        minimumInputLength: 2,
+	        allowClear: true,
+	        ajax: {
+	          type: "POST",   
+	          url: baseurl+"/visitorLog/searchByName",
+	          dataType: 'json',
+	          delay: 250,
+	          data: function (params) {
+
+	            var queryParameters = {
+	                term: params.term
+	            };
+	            return queryParameters;
+	        },
+	        processResults: function (data) {
+	            return {
+	                results: $.map(data, function (item) {
+	                    return {
+	                        text: item.full_name_visitor+" - "+item.company_name,
+	                        id: item.id_visitor 
+	                        
+	                    };
+	                })
+	            };
+	        },
+	          cache: true
+	        }
+	      });/*.on("change", function () {
+	         // console.log($(this));
+	        //var str = $("#s2id_search_code .select2-choice span").text();
+	         var data = $(this).select2('data')[0];
+	        console.log(data); 
+	         if(data){
+	         //$("#txtPriceProduct").val(data.sellPrice);
+	         //$("#txtAmountProduct").val(1);
+	         //$("#txtProductId").val(data.idProduct);
+	         }
+	      });*/
 });
 	

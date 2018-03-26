@@ -1,6 +1,7 @@
 package com.ctac.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ctac.bean.CompanyBean;
 import com.ctac.bean.DepartmentBean;
@@ -94,8 +95,11 @@ public class ServiceVisit {
 		return visitDAO.selectVisitScheduleById(id_visit_schedule);
 	}
 	
-	public VisitScheduleBean selectVisitScheduleByIdByVisitor(String codeorname) {
-		return visitDAO.selectVisitScheduleByIdByVisitor(codeorname);
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByNameVisitor(String name){
+		return visitDAO.selectVisitScheduleByNameVisitor(name);
+	}
+	public ArrayList<VisitScheduleBean> selectVisitScheduleByidVisitor(int id_visitor){
+		return visitDAO.selectVisitScheduleByidVisitor(id_visitor);
 	}
 	
 	public ArrayList<DepartmentBean> selectDepartmentBean(){
@@ -106,8 +110,8 @@ public class ServiceVisit {
 		return visitDAO.selectOccupationBean();
 	}
 	
-	public int insertVisitorLog(VisitorLogBean visitorLog) {
-		return visitDAO.insertVisitorLog(visitorLog);
+	public int insertVisitorLog(List<VisitorLogBean> listVisitorLog) {
+		return visitDAO.insertVisitorLog(listVisitorLog);
 	}
 	public ArrayList<VisitorLogBean> selectVisitorLog(int id_visit_schedule){
 		return visitDAO.selectVisitorLog(id_visit_schedule);

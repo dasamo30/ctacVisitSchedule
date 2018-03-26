@@ -107,13 +107,14 @@ public class ControllerVisitSchedule {
 		//SimpleDateFormat date=new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		Date date =Calendar.getInstance().getTime();
 		
-		String date_hour=visitScheduleBean.getDate()+" "+visitScheduleBean.getHour();
-      	SimpleDateFormat sf=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		//String date_hour=visitScheduleBean.getDate()+" "+visitScheduleBean.getHour();
+      	//SimpleDateFormat sf=new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		
 		visitScheduleBean.setStatus((short) 1);
 		visitScheduleBean.setRegistration_date(date);
 		visitScheduleBean.setId_usuario(Integer.parseInt(sesion.getAttribute("idusuario").toString()));
-		visitScheduleBean.setDate_hour(sf.parse(date_hour));
+		//visitScheduleBean.setDate_hour(sf.parse(date_hour));
+		
 		System.out.println(visitScheduleBean.toString());
 		
 		String rpta =this.serviceVisit.insertIntoVisitSchedule(visitScheduleBean);
@@ -132,7 +133,8 @@ public class ControllerVisitSchedule {
 		dataTableObject.setAaData(listVisitSchedule);
 		dataTableObject.setiTotalDisplayRecords(listVisitSchedule.size());
 		dataTableObject.setiTotalRecords(listVisitSchedule.size());
-		Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm:ss").create(); 
+		//Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create(); 
 		//Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
 		String json = gson.toJson(dataTableObject);
 		

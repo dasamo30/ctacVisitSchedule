@@ -19,7 +19,7 @@
                        	<form:select path="listVisitor" cssClass="form-control" required="required" id="cboVisitor" name="id_visitor" cssStyle="width: 100%;"  >
 						      <option value="">-- Seleccione --</option>
 						      <c:forEach items="${listVisitor}" var="visitor">
-						            <option <c:if test="${visitor.id_visitor eq VisitScheduleBean.id_visitor}">selected="selected"</c:if>  value="${visitor.id_visitor}">${visitor.full_name} </option>
+						            <option <c:if test="${visitor.id_visitor eq VisitScheduleBean.id_visitor}">selected="selected"</c:if>  value="${visitor.id_visitor}">${visitor.full_name} - ${visitor.number_license} </option>
 						        </c:forEach>
 						</form:select>
                        	<div class="help-block with-errors"></div>
@@ -34,11 +34,11 @@
 						</form:select>
                        	<div class="help-block with-errors"></div>
                     </div>                      
-                    <section class="col-md-6 col-print-6">                          
+                    <section class="col-md-4 col-print-4">                          
                             <div class="form-group">
-                            <label for="txtDate">Date visit: </label>    
+                            <label for="txtDateIni">date from visit: </label>    
                             <div class="input-group date" id="containerDateIni">
-								<input class="form-control pull-right" id="txtDate" value="<fmt:formatDate pattern = "dd-MM-yyyy" value = "${campaniaBean.fecha_hora_inicio}"/>"  name="date" type="text" required >
+								<input class="form-control pull-right" id="txtDateIni" value="<fmt:formatDate pattern = "dd-MM-yyyy" value = "${campaniaBean.fecha_hora_inicio}"/>"  name="date_ini" type="text" required >
 								<div class="input-group-addon open-datetimepicker">
 								<i class="fa fa-calendar" id="fa-calendar_ini"></i>
 								</div>
@@ -46,7 +46,19 @@
                             <div class="help-block with-errors"></div>
                             </div>  
 	                </section>
-	                <section class="col-md-6 col-print-6">
+	                <section class="col-md-4 col-print-4">                          
+                            <div class="form-group">
+                            <label for="txtDateEnd">date to visit: </label>    
+                            <div class="input-group date" id="containerDateFin">
+								<input class="form-control pull-right" id="txtDateEnd" value="<fmt:formatDate pattern = "dd-MM-yyyy" value = "${campaniaBean.fecha_hora_inicio}"/>"  name="date_end" type="text" required >
+								<div class="input-group-addon open-datetimepicker">
+								<i class="fa fa-calendar" id="fa-calendar_ini"></i>
+								</div>
+								</div>
+                            <div class="help-block with-errors"></div>
+                            </div>  
+	                </section>
+	                <section class="col-md-4 col-print-4">
 	                <div class="bootstrap-timepicker">
                     <div class="form-group">
                       <label for="txtHour">Hour visit:</label>
