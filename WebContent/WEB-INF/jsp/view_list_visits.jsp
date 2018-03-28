@@ -6,8 +6,8 @@
 <jsp:useBean id="date" class="java.util.Date" /> 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
+
 <c:forEach items="${lisVisitSchedule}" var="visitSchedule">
-	
 <div id="divdataVisit" class='box-footer box-comments' style="display: block;">
               	
                   <div class='box-comment'>
@@ -90,7 +90,9 @@
                 </div><!-- /.box-footer -->
  </c:forEach>              
                
-                             <div class="box-footer">
+            <div class="box-footer">
+            <c:choose>
+				<c:when test="${not empty lisVisitSchedule}">                 
                 <form id="frmRegisterVisit" role="form" autocomplete="off" >
                     <section class="col-md-12 col-print-10">                          
                     <div class="form-group form-horizontal col-md-4">
@@ -128,8 +130,11 @@
                     </div>
                     <button id="btnregiter" type="submit" class="btn btn-success pull-right"><i class="fa  fa-sign-in"></i> Register Visit</button>  
 	                </section>
-	                
-                     </form>
-                 <div id="msjSearchVisit" ></div>
+                   </form>
+                   </c:when>
+                   <c:otherwise>
+                 	<div id="msjSearchVisit" class="alert alert-warning alert-dismissable" >You do not have a scheduled visit for today</div>
+                </c:otherwise>
+                </c:choose>	
                 </div><!-- /.box-footer -->
                 

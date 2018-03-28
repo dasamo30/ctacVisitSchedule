@@ -221,13 +221,8 @@ jQuery(document).ready( function () {
         	   		ezBSAlert({ headerText:"success", messageText:text, alertType: "success"});
         	   		
         	   		$("#divListVisits").html("");
-        	   		//$("#cboVisitSearch").empty().trigger('change');
         	   		$('#cboVisitSearch').val(null).trigger('change');
-        	   		//$('#cboVisitSearch').select2('val', '');
-
-        	   		//$('#btnregiter').remove();
-        	   		//$("#frmRegisterVisit").hide();
-        	   		//$("#divdataVisit").hide();
+        	   		$("#fomrSearchVisit").validator('destroy').validator();
         	   	}else{
         	   		text='<img src="'+baseurl+'/images/refuse.png" alt="user image" class="img-responsive center-block" > \n'+
        	   		 	'<p class="text-center">Error</p>';

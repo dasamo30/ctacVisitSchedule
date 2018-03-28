@@ -19,11 +19,6 @@
                         schedule visit
                     </a>
                 </div>
-                <div class="form-group">
-                                    <label for="txtProductSearch">Product</label>
-                                    <select  id="txtProductSearch" class="form-control select2" style="width: 100%;"  required ></select>
-                                    <div class="help-block with-errors"></div>
-                                  </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 
