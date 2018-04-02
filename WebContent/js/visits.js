@@ -826,6 +826,42 @@ jQuery(document).ready( function () {
 	        
 	        ] 
 	    });
+	 /************************ consult ******************************/
 	 
+	 $(document).on("submit","#formConsultVisitor",function(e){    
+	      
+	        if (e.isDefaultPrevented()) {
+	            return false;
+	        }
+	       e.preventDefault();
+	       
+	       frm=$(this);
+	       var divData=$("#divConsultVisits");
+	       divData.removeAttr('class');
+	       divData.html("");
+	       
+	       
+	       $.ajax({
+	            type: "POST",
+	            url: baseurl+"/visit/consult/ActConsultVisitor",
+	            data:frm.serialize(),
+	            success: function(data){
+	           
+	            	divData.html(data);
+	                frm.trigger('reset');
+	              
+	                
+	            },
+	            error: function() {
+	               // estableceAlerta("#divConsultVisits","errors","A ocurrido un error interno !!!");
+	                alerts(3,divData,"A ocurrido un error interno !!!");
+	            	//$("#divConsultVisits").html(data);
+	                frm.trigger('reset');
+	                console.log("errorr");
+	                //
+	            } 
+	        });
+	       
+	 });      
 	 
 });

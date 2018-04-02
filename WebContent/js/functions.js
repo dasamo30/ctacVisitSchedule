@@ -19,6 +19,16 @@ jQuery(document).ready( function () {
 
      
     }
+    
+    $( document ).ajaxError(function(event, jqxhr, settings, thrownError) {
+    	  //$( ".log" ).text( "Triggered ajaxError handler." );
+      	//console.log(event)
+        	console.log(jqxhr);
+        	//console.log(settings)
+        	//console.log(thrownError)
+      	if(jqxhr.status==401)
+      		window.location = baseurl;
+    	});
          
         
     $(document).ajaxStart(function () {

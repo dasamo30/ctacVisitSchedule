@@ -21,15 +21,15 @@ public class SecurityFilter implements Filter {
 	private long expiryTime = 0L;
 	private final String urllogin = "/ctacVisitSchedule/login";
 
-	private void doBeforeProcessing(ServletRequest request, ServletResponse response)
-			throws IOException, ServletException {
-		this.log("SecurityFilter:DoBeforeProcessing");
-	}
-
-	private void doAfterProcessing(ServletRequest request, ServletResponse response)
-			throws IOException, ServletException {
-		this.log("SecurityFilter:DoAfterProcessing");
-	}
+//	private void doBeforeProcessing(ServletRequest request, ServletResponse response)
+//			throws IOException, ServletException {
+//		this.log("SecurityFilter:DoBeforeProcessing");
+//	}
+//
+//	private void doAfterProcessing(ServletRequest request, ServletResponse response)
+//			throws IOException, ServletException {
+//		this.log("SecurityFilter:DoAfterProcessing");
+//	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -39,11 +39,16 @@ public class SecurityFilter implements Filter {
 		HttpSession session = req.getSession();
 		this.currTime = System.currentTimeMillis() / 1000L;
 		String uri = ((HttpServletRequest) request).getRequestURI();
+		
 		if (uri.matches(".*(css|jpg|png|gif|js|svg|eot|ttf|woff|woff2)")) {
 			chain.doFilter(request, response);
+			//System.out.println("111111111");
 		} else {
+			//System.out.println("222222222");
 			if (!servletPath.equals("/login") && !servletPath.contains("/visitorLog")  && !servletPath.equals("/validatelogin")) {
+				//System.out.println("33333333333333");
 				if (this.expiryTime == 0L) {
+					//System.out.println("6666666666666666");
 					if (session.getAttribute("usuario") == null) {
 						session.setAttribute("err", "Usted no ha iniciado sesion");
 						resp.sendRedirect("urllogin");
@@ -53,7 +58,11 @@ public class SecurityFilter implements Filter {
 
 					this.expiryTime = this.currTime + (long) session.getMaxInactiveInterval();
 				} else {
+					//System.out.println("7777777777777 "+req.getHeader("X-Requested-With"));
+					
+					
 					if (this.expiryTime < this.currTime) {
+						//System.out.println("88888888888");
 						session.setAttribute("err", "La sesion a expirado.");
 						resp.sendRedirect(urllogin);
 						this.expiryTime = -1L;
@@ -61,15 +70,28 @@ public class SecurityFilter implements Filter {
 					}
 
 					if (session.getAttribute("usuario") == null) {
-						session.setAttribute("err", "Usted no ha iniciado sesion");
-						resp.sendRedirect(urllogin);
-						this.expiryTime = -2L;
-						return;
-					}
 
+						if(req.getHeader("X-Requested-With")!=null) {
+							//System.out.println("99999999999999999999");
+							resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+							resp.setHeader("Location", req.getContextPath());	
+						}else {
+							session.setAttribute("err", "Usted no ha iniciado sesion");
+							resp.sendRedirect(urllogin);
+							this.expiryTime = -2L;
+							return;
+							
+						}
+
+					}
+					
+					
 					this.expiryTime = this.currTime + (long) session.getMaxInactiveInterval();
 				}
+				
 			} else if (session.getAttribute("err") != null) {
+				//System.out.println("4444444444444444");
+				//System.out.println("session.getAttribute(\"err\") != null");
 				String[] temp = session.getAttribute("err").toString().split(";");
 				if (temp[0].equals("error_logeo")) {
 					session.setAttribute("err", temp[1]);
@@ -80,6 +102,8 @@ public class SecurityFilter implements Filter {
 				} else if (this.expiryTime == -2L) {
 					this.expiryTime = 0L;
 				}
+			}else {
+				//System.out.println("555555555555");
 			}
 
 			chain.doFilter(req, resp);
@@ -116,36 +140,36 @@ public class SecurityFilter implements Filter {
 		}
 	}
 
-	private void sendProcessingError(Throwable t, ServletResponse response) {
-		String stackTrace = getStackTrace(t);
-		PrintStream ps;
-		if (stackTrace != null && !stackTrace.equals("")) {
-			try {
-				response.setContentType("text/html");
-				ps = new PrintStream(response.getOutputStream());
-				PrintWriter pw = new PrintWriter(ps);
-				pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n");
-				pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
-				pw.print(stackTrace);
-				pw.print("</pre></body>\n</html>");
-				pw.close();
-				ps.close();
-				response.getOutputStream().close();
-			} catch (Exception arg6) {
-				;
-			}
-		} else {
-			try {
-				ps = new PrintStream(response.getOutputStream());
-				t.printStackTrace(ps);
-				ps.close();
-				response.getOutputStream().close();
-			} catch (Exception arg5) {
-				;
-			}
-		}
-
-	}
+//	private void sendProcessingError(Throwable t, ServletResponse response) {
+//		String stackTrace = getStackTrace(t);
+//		PrintStream ps;
+//		if (stackTrace != null && !stackTrace.equals("")) {
+//			try {
+//				response.setContentType("text/html");
+//				ps = new PrintStream(response.getOutputStream());
+//				PrintWriter pw = new PrintWriter(ps);
+//				pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n");
+//				pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
+//				pw.print(stackTrace);
+//				pw.print("</pre></body>\n</html>");
+//				pw.close();
+//				ps.close();
+//				response.getOutputStream().close();
+//			} catch (Exception arg6) {
+//				;
+//			}
+//		} else {
+//			try {
+//				ps = new PrintStream(response.getOutputStream());
+//				t.printStackTrace(ps);
+//				ps.close();
+//				response.getOutputStream().close();
+//			} catch (Exception arg5) {
+//				;
+//			}
+//		}
+//
+//	}
 
 	public static String getStackTrace(Throwable t) {
 		String stackTrace = null;

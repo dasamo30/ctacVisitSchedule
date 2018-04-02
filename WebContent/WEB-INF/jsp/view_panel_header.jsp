@@ -322,9 +322,9 @@
                       <input type="hidden" id="idusuario" data-id="<%=sesion.getAttribute("idusuario").toString()%>">
               </li>
               <!-- Control Sidebar Toggle Button href="#" data-toggle="control-sidebar" -->
-              <li>
-                <a ><i class="fa fa-chevron-down"></i></a>
-              </li>
+<!--               <li> -->
+<!--                 <a ><i class="fa fa-chevron-down"></i></a> -->
+<!--               </li> -->
             </ul>
           </div>
         </nav>

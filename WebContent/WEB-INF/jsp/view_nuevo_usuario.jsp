@@ -54,35 +54,35 @@
                         </select>
                       </div>
                     </c:if>    
-                   <div class="form-group">
-                      <label for="txtnombres">Nombres</label>
-                      <input type="text" class="form-control" id="txtnombres" name="nombres" value="${usuarioBean.nombres}" placeholder="Ingrese su nombre" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                      <label for="txtapellidos">Apellidos</label>
-                      <input type="text" class="form-control" id="txtapellidos" name="apellidos" value="${usuarioBean.apellidos}" placeholder="Ingrese sus apellidos" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtgenero">Genero</label>
-                        <select id="txtgenero" class="form-control" name="genero" required>
-                          <option value="" >seleccione</option>
-                          <option value="M" ${ usuarioBean.genero=="M" ? 'selected' : ''}>M</option>
-                          <option value="F" ${ usuarioBean.genero=="F" ? 'selected' : ''}>F</option>
-                      </select>
-                      <div class="help-block with-errors"></div>  
-                    </div>
-                    <div class="form-group">
-                      <label for="txtdni">Dni</label>
-                      <input type="text" class="form-control" id="txtdni" name="dni" value="${usuarioBean.dni}" placeholder="Ingrese Dni" required>
-                      <div class="help-block with-errors"></div>
-                    </div>  
-                    <div class="form-group">
-                      <label for="txtmail">Email address</label>
-                      <input type="email" class="form-control" id="txtmail" name="correo" value="${usuarioBean.correo}" placeholder="Ingrese email" required >
-                      <div class="help-block with-errors"></div>
-                    </div>
+<!--                    <div class="form-group"> -->
+<!--                       <label for="txtnombres">Nombres</label> -->
+<%--                       <input type="text" class="form-control" id="txtnombres" name="nombres" value="${usuarioBean.nombres}" placeholder="Ingrese su nombre" required> --%>
+<!--                       <div class="help-block with-errors"></div> -->
+<!--                     </div> -->
+<!--                     <div class="form-group"> -->
+<!--                       <label for="txtapellidos">Apellidos</label> -->
+<%--                       <input type="text" class="form-control" id="txtapellidos" name="apellidos" value="${usuarioBean.apellidos}" placeholder="Ingrese sus apellidos" required> --%>
+<!--                       <div class="help-block with-errors"></div> -->
+<!--                     </div> -->
+<!--                     <div class="form-group"> -->
+<!--                         <label for="txtgenero">Genero</label> -->
+<!--                         <select id="txtgenero" class="form-control" name="genero" required> -->
+<!--                           <option value="" >seleccione</option> -->
+<%--                           <option value="M" ${ usuarioBean.genero=="M" ? 'selected' : ''}>M</option> --%>
+<%--                           <option value="F" ${ usuarioBean.genero=="F" ? 'selected' : ''}>F</option> --%>
+<!--                       </select> -->
+<!--                       <div class="help-block with-errors"></div>   -->
+<!--                     </div> -->
+<!--                     <div class="form-group"> -->
+<!--                       <label for="txtdni">Dni</label> -->
+<%--                       <input type="text" class="form-control" id="txtdni" name="dni" value="${usuarioBean.dni}" placeholder="Ingrese Dni" required> --%>
+<!--                       <div class="help-block with-errors"></div> -->
+<!--                     </div>   -->
+<!--                     <div class="form-group"> -->
+<!--                       <label for="txtmail">Email address</label> -->
+<%--                       <input type="email" class="form-control" id="txtmail" name="correo" value="${usuarioBean.correo}" placeholder="Ingrese email" required > --%>
+<!--                       <div class="help-block with-errors"></div> -->
+<!--                     </div> -->
                   </div><!-- /.box-body -->
                   <input type="hidden" name="id_usuario"  value="${ !empty usuarioBean ? PerfilBean.id_usuario : '0'}" readonly /> 
                   <div class="modal-footer">

@@ -821,9 +821,76 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 
 
 	@Override
-	public VisitScheduleBean selectVisitScheduleById(int id_visit_schedule) {
+	public VisitScheduleBean selectVisitScheduleByCallcod(String call_cod) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		Transaction tx = null;
+		Session session = sessionFactory.openSession();
+		 VisitScheduleBean visitSchedule=new VisitScheduleBean();
+		
+		try {
+			//tx = session.beginTransaction();
+			String  sql= "SELECT a.id_visit_schedule, a.date_ini, a.date_end, a.hour, a.badge_number, a.id_company, a.id_employee,a.id_department, \n" + 
+					"a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod, \n" + 
+					"b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number, \n" + 
+					"c.full_name as full_name_employee,g.occupation as occupation_employee, \n" + 
+					"d.company_name, \n" + 
+					"e.reasons_name, \n" + 
+					"f.department \n" + 
+					"  FROM visits.visit_schedule a \n" + 
+					"  inner join visits.visitors b on b.id_visitor=a.id_visitor \n" + 
+					"  inner join visits.employee c on c.id_employee=a.id_employee \n" + 
+					"  inner join visits.company d on d.id_company=a.id_company \n" + 
+					"  inner join visits.reasons_visit e on e.id_reason=a.id_reason \n" + 
+					"  inner join visits.department f on f.id_department=a.id_department \n" + 
+					"  inner join visits.occupation g on g.id_occupation=c.id_occupation\n" + 
+					"  where\n" + 
+					"  a.call_cod= :call_cod ";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setParameter("call_cod", call_cod);
+			
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+			HashMap map = (HashMap) data.get(0);
+			
+			
+	            visitSchedule.setId_visit_schedule(((BigInteger) map.get("id_visit_schedule")).intValue());
+				visitSchedule.setDate_ini((Date) map.get("date_ini"));
+				visitSchedule.setDate_end((Date) map.get("date_end"));
+				visitSchedule.setHour((String) map.get("hour"));
+				visitSchedule.setNumber_badge((String) map.get("badge_number"));
+				visitSchedule.setId_company((int) map.get("id_company"));
+				visitSchedule.setId_employee((int) map.get("id_employee"));
+				visitSchedule.setId_visitor((int) map.get("id_visitor"));
+				visitSchedule.setId_usuario((int) map.get("id_usuario"));
+				visitSchedule.setId_reason((int) map.get("id_reason"));
+				visitSchedule.setId_department((int) map.get("id_department"));
+	            visitSchedule.setStatus((short) map.get("status"));
+	            visitSchedule.setRegistration_date((Date) map.get("registration_date"));
+	            visitSchedule.setFull_name_visitor((String) map.get("full_name_visitor"));
+	            visitSchedule.setNumber_license((String) map.get("number_license"));
+	            visitSchedule.setCitizen_ship((String) map.get("citizen_ship"));
+	            visitSchedule.setEmail((String) map.get("email"));
+	            visitSchedule.setPhone_number((String) map.get("phone_number"));
+	            visitSchedule.setFull_name_employee((String) map.get("full_name_employee"));
+	            visitSchedule.setOccupation_employee((String) map.get("occupation_employee"));
+	            visitSchedule.setCompany_name((String) map.get("company_name"));
+	            visitSchedule.setReasons_name((String) map.get("reasons_name"));
+	            visitSchedule.setDepartment_name((String) map.get("department"));
+	            visitSchedule.setCall_cod((String) map.get("call_cod"));
+	         
+		} catch (HibernateException e) {
+			/*if (tx != null) {
+				tx.rollback();
+			}*/
+
+			visitSchedule = null;
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return visitSchedule;
 	}
 
 	/*
@@ -1209,6 +1276,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 				visitSchedule.setDate_ini((Date) row.get("date_ini"));
 				visitSchedule.setDate_end((Date) row.get("date_end"));
 				visitSchedule.setHour((String) row.get("hour"));
+				visitSchedule.setNumber_badge((String) row.get("badge_number"));
 				visitSchedule.setId_company((int) row.get("id_company"));
 				visitSchedule.setId_employee((int) row.get("id_employee"));
 				visitSchedule.setId_visitor((int) row.get("id_visitor"));

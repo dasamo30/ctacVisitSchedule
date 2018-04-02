@@ -91,8 +91,8 @@ public class ServiceVisit {
 	public ArrayList<VisitScheduleBean> selectVisitSchedule(){
 		return visitDAO.selectVisitSchedule();
 	}
-	public VisitScheduleBean selectVisitScheduleById(int id_visit_schedule){
-		return visitDAO.selectVisitScheduleById(id_visit_schedule);
+	public VisitScheduleBean selectVisitScheduleByCallcod(String call_cod){
+		return visitDAO.selectVisitScheduleByCallcod(call_cod);
 	}
 	
 	public ArrayList<VisitScheduleBean> selectVisitScheduleByNameVisitor(String name){

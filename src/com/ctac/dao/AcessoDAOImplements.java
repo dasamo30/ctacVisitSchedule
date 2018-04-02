@@ -257,6 +257,7 @@ public class AcessoDAOImplements implements IAccesosDAO {
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
 
+		System.out.println(usuario);
 		try {
 			tx = session.beginTransaction();
 			String e = "select inserta_usuario from accesos.inserta_usuario( :usuario, :clave, :estado, :fecha_reg, :id_perfil, :nro_sesion, :sesion_activa, :nombres, :apellidos, :foto, :genero, :dni, :correo)";
@@ -268,12 +269,12 @@ public class AcessoDAOImplements implements IAccesosDAO {
 			query.setParameter("id_perfil", Integer.valueOf(usuario.getId_perfil()));
 			query.setParameter("nro_sesion", Integer.valueOf(usuario.getNro_sesion()));
 			query.setParameter("sesion_activa", Integer.valueOf(usuario.getSesion_activa()));
-			query.setParameter("nombres", usuario.getNombres());
-			query.setParameter("apellidos", usuario.getApellidos());
+			query.setParameter("nombres", "");
+			query.setParameter("apellidos","");
 			query.setParameter("foto", usuario.getFoto());
-			query.setParameter("genero", usuario.getGenero());
-			query.setParameter("dni", usuario.getDni());
-			query.setParameter("correo", usuario.getCorreo());
+			query.setParameter("genero","");
+			query.setParameter("dni", "");
+			query.setParameter("correo","");
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List data = query.list();
 			rpta = ((Integer) ((HashMap) data.get(0)).get("inserta_usuario")).intValue();

@@ -22,7 +22,7 @@ public class ControllerVisitReport {
 		HashMap route = new HashMap();
 		route.put(Integer.valueOf(1), "Visits");
 		route.put(Integer.valueOf(2), "report");
-		String opmnu = "#lim_1:#lim_2";
+		String opmnu = "#lim_4:#lim_6";
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("menus", sesion.getAttribute("lmemus"));
 		//mv.addObject("foto", sesion.getAttribute("foto"));

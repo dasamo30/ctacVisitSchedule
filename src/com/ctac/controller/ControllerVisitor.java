@@ -107,6 +107,7 @@ public class ControllerVisitor {
 				//new EmployeeBean();
 		//e.setId_employee(id_employee);
 		
+		
 		mav.setViewName("view_new_visitor");
 		mav.addObject("formVisitor", "formModifVisitor");
 		mav.addObject("VisitorBean", v);

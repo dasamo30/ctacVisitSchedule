@@ -179,6 +179,8 @@ jQuery(document).ready( function () {
       console.log(dataJson);
       
       listVisit = new Array();
+      var all_ok=true;
+
       
       visits.each(function(i, e) {
     	  console.log($(this).val());
@@ -187,7 +189,19 @@ jQuery(document).ready( function () {
     	   //data2['id_visit_schedule'] = $(this).val();
     	   console.log($('#checkbadge').is(":checked"))
     	   if($('#checkbadge').is(":checked")){
-    		   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType});
+    		   
+    		   
+    		   if($("#cboType").val()==2){
+    			   console.log("--------------"+$("#cboType").val()+"----"+$(this).data('id')+"--"+$(this).data('cod'));
+    			   
+    			   if( $(this).data('id') != $("#badge_number").val() ){
+    				   //alert("El numero de badge no concide para la cita "+$(this).data('cod'));
+    				   mtext="El numero de badge no concide para la cita "+$(this).data('cod');
+    				   ezBSAlert({ headerText:"Warning",messageText:mtext, alertType: "warning"});
+    				   all_ok=false;
+    			   	}
+    		   }
+    		   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType});	   
     	   }else{
     		   listVisit.push({ "id_visit_schedule": $(this).val() , "type": cboType, "reason":cboReason });
     	   }
@@ -201,9 +215,11 @@ jQuery(document).ready( function () {
        });
 
       //listVisit.push({ "id_visit_schedule": 25, "badge_number":badge_number , "type": cboType, "reason":cboReason });
-       console.log(listVisit);
-
-     //  return;
+      if(!all_ok){
+    	  return;
+       }	
+      
+      //return true;
        $.ajax({
     	   type: "POST",
            url: baseurl+"/visitorLog/ActRegisterVisit",

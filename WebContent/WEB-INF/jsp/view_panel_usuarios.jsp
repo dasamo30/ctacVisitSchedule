@@ -64,8 +64,8 @@
                     <thead>
                       <tr>
                         <th>Login</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
+<!--                         <th>Nombres</th> -->
+<!--                         <th>Apellidos</th> -->
                         <th>Perfil</th>
                         <th>Estado</th>
                         <th>Editar</th>
@@ -75,8 +75,8 @@
                     <tfoot>
                       <tr>
                         <th>Login</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
+<!--                         <th>Nombres</th> -->
+<!--                         <th>Apellidos</th> -->
                         <th>Perfil</th>
                         <th>Estado</th>
                         <th>Editar</th>

@@ -55,8 +55,8 @@ jQuery(document).ready( function () {
             },
             "aoColumns": [
             { "mData": "login" },
-            { "mData": "nombres"},
-            { "mData": "apellidos"},
+//            { "mData": "nombres"},
+//            { "mData": "apellidos"},
             { "mData": "perfil"},
             { "mData": "ico_estado","sClass": "text-center"},
             { "mData": "ico_edit","sClass": "text-center"},

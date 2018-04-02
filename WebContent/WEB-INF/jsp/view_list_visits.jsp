@@ -51,7 +51,7 @@
             <div class="col-sm-1 invoice-col">
             <address>
               <br><br><br>	
-              <b id="id_visit_schedule"><input type="checkbox" checked="checked"  class="ids" name="ids[]" value="${visitSchedule.id_visit_schedule}" ></b>
+              <b id="id_visit_schedule"><input type="checkbox" checked="checked" data-id="${visitSchedule.number_badge}"  data-cod="${visitSchedule.call_cod}"   class="ids" name="ids[]" value="${visitSchedule.id_visit_schedule}" ></b>
               </address>
             </div>
             <!-- /.col -->

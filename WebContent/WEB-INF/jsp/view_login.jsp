@@ -57,7 +57,7 @@
           <div class="row">
             <div class="col-xs-8">
               <div class="checkbox icheck">
-                  <label style="color:#a94442;">
+                  <label style="color:#a94442;" id="msjsess" >
                     ${rpta}
                  <!-- <input type="checkbox"> Remember Me -->
                 </label>

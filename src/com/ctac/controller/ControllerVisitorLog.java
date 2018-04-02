@@ -104,8 +104,8 @@ public class ControllerVisitorLog {
 		System.out.println("count:"+listVisit.size());
 		System.out.println(":::::::::::::::::::"+listVisit.toString());
 		
-		//rpta=serviceVisit.insertVisitorLog(listVisit);
-		return 0;
+		rpta=serviceVisit.insertVisitorLog(listVisit);
+		return rpta;
 	}
 	@RequestMapping(value = {"/visitorLog/ActRegisterVisit222"}, method = {RequestMethod.POST})
 	@ResponseBody

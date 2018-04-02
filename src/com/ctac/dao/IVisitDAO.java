@@ -37,7 +37,7 @@ public interface IVisitDAO {
 	public int updateVisitSchedule(VisitScheduleBean visitSchedule);
 	public int deleteVisitSchedule(VisitScheduleBean visitSchedule);
 	public ArrayList<VisitScheduleBean> selectVisitSchedule();
-	public VisitScheduleBean selectVisitScheduleById(int id_visit_schedule);
+	public VisitScheduleBean selectVisitScheduleByCallcod(String call_cod);
 	
 	public ArrayList<VisitScheduleBean> selectVisitScheduleByNameVisitor(String name);
 	public ArrayList<VisitScheduleBean> selectVisitScheduleByidVisitor(int id_visitor);
