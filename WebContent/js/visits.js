@@ -680,6 +680,8 @@ jQuery(document).ready( function () {
 	                //if(result > 0){
 	                    alerts(0,msj,"El codigo de ingreso generado es:"+result);   
 	                    loadDataTable("#tbSchedule");
+	                    $('#cboVisitor,#cboCompany,#cboEmployee,#cboDepartment').val(null).trigger('change');
+	                    frm.validator('destroy').validator();
 	                    frm.trigger('reset');
 	                /*}else{
 	                    alerts(2,msj,"A ocurrido un error interno !!!");
