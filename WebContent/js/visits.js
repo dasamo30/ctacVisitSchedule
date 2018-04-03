@@ -864,6 +864,5 @@ jQuery(document).ready( function () {
 	            } 
 	        });
 	       
-	 });      
-	 
+	 });
 });

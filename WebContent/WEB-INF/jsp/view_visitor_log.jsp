@@ -37,6 +37,24 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+    	.brand-centered {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+.brand-centered .navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar-toggle {
+    z-index: 1;
+}
+    	
+    </style>
   </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body class="hold-transition skin-blue layout-top-nav">
@@ -46,20 +64,23 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="javascript:void(0)" class="navbar-brand"><b>CTAC</b> - VISITOR LOG IN SHEET</a>
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-                <i class="fa fa-bars"></i>
-              </button>
+            <img class="img-thumbnail" src="${contextPath}/images/site-logo.png" alt="Photo"> 
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
               <ul class="nav navbar-nav">
+<!--               <a href="javascript:void(0)" class="navbar-brand"><b>CTAC</b> - VISITOR LOG IN SHEET</a> -->
               </ul>
-            </div><!-- /.navbar-collapse -->
-            <!-- Navbar Right Menu -->
+            </div>
+             <div class="brand-centered">
+      			
+      			<a href="javascript:void(0)" class="navbar-brand"><b>CTAC</b> - VISITOR LOG IN SHEET</a>
+
+      		</div>
               <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+               
+                
                 </ul>
               </div><!-- /.navbar-custom-menu -->
           </div><!-- /.container-fluid -->
@@ -92,10 +113,10 @@
                 <div class="form-group form-horizontal">
                    <label for="cboVisitSearch" class="col-sm-2 control-label" style="width: auto;">Full Name Visit </label>
                       <div class="input-group input-group-sm">
-                      <select  id="cboVisitSearch" class="form-control select2" name="id_visitor"  style="position:absolute; width: 100%;"  required ></select>
+                      <select  id="cboVisitSearch" class="form-control" name="id_visitor"  style="position:absolute; width: 100%;"  required ></select>
 <!--                     <input type="text" class="form-control" id="txtvisit" name="codeorname" required > -->
                     <span class="input-group-btn">
-                      <button class="btn btn-info btn-flat" type="submit">Search!</button>
+                      <button class="btn btn-info btn-sm" style="height: 28px;" type="submit">Search!</button>
                     </span>
                   </div>
                   <div class="help-block with-errors"></div>
