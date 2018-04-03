@@ -104,7 +104,8 @@ public class ControladorLogin {
 			}*/
 
 			msjlogin.setAttribute("foto", encodedString);
-			msjlogin.setAttribute("nombre", bean.getNombres() + " " + bean.getApellidos());
+			msjlogin.setAttribute("nombre", bean.getLogin());
+			//msjlogin.setAttribute("nombre", bean.getNombres() + " " + bean.getApellidos());
 			msjlogin.setAttribute("perfil", bean.getPerfil());
 			msjlogin.setAttribute("pestado", Integer.valueOf(bean.getPestado()));
 			msjlogin.setAttribute("idusuario", Integer.valueOf(bean.getId_usuario()));
