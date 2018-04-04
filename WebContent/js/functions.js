@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 jQuery(document).ready( function () {
-	console.log("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
     Object.defineProperty(console, '_commandLineAPI', { get : function() { throw 'Nooo!' } });
     
@@ -332,7 +331,7 @@ jQuery(document).ready( function () {
    }
    
 	$(window).resize(function() {
-	 	console.log($(window).height());
+	 	//console.log($(window).height());
 	    $('#content').height($(window).height() - 230);
 	});
 	$(window).trigger('resize');

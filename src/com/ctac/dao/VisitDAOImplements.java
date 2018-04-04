@@ -826,7 +826,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
-		 VisitScheduleBean visitSchedule=new VisitScheduleBean();
+		 VisitScheduleBean visitSchedule = null;
 		
 		try {
 			//tx = session.beginTransaction();
@@ -851,8 +851,11 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List data = query.list();
-			HashMap map = (HashMap) data.get(0);
 			
+			System.out.println(data.size());
+			if(data.size()>0) {
+			HashMap map = (HashMap) data.get(0);
+			visitSchedule =new VisitScheduleBean();
 			
 	            visitSchedule.setId_visit_schedule(((BigInteger) map.get("id_visit_schedule")).intValue());
 				visitSchedule.setDate_ini((Date) map.get("date_ini"));
@@ -878,7 +881,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	            visitSchedule.setReasons_name((String) map.get("reasons_name"));
 	            visitSchedule.setDepartment_name((String) map.get("department"));
 	            visitSchedule.setCall_cod((String) map.get("call_cod"));
-	         
+			}
 		} catch (HibernateException e) {
 			/*if (tx != null) {
 				tx.rollback();
@@ -1320,6 +1323,44 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		}
 
 		return listVisitSchedule;
+	}
+
+
+	@Override
+	public int updateStatusVisitSchedule(VisitScheduleBean visitSchedule) {
+		int rpta = -1;
+		Transaction tx = null;
+		Session session = sessionFactory.openSession();
+		System.out.println(visitSchedule.toString());
+		try {
+			tx = session.beginTransaction();
+			String sql = "UPDATE visits.visit_schedule\n" + 
+					"   SET  status=:status \n" + 
+					" WHERE id_visit_schedule= :id_visit_schedule";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setParameter("id_visit_schedule", visitSchedule.getId_visit_schedule());
+			query.setParameter("status", visitSchedule.getStatus());
+			int result =query.executeUpdate();
+			System.out.println("resultdet.executeUpdate:: "+result);
+			 if (!tx.wasCommitted()){
+	                tx.commit();
+	                rpta=0;
+	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	          }
+	            
+	        }catch (HibernateException e) {
+	            if (tx!=null){
+	            	System.out.println("HibernateException.rollback:: "+e.getMessage());
+	                tx.rollback();
+	            }
+	            System.out.println("HibernateException:: "+e.getMessage());
+	            e.printStackTrace(); 
+	        }finally {
+	         System.out.println("Hibernate.session.close::");	
+	          session.close();
+	        }	
+
+		return rpta;
 	}
 
 

@@ -777,6 +777,44 @@ jQuery(document).ready( function () {
 	          }
 	        });
 	   });
+	   
+	   $(document).on("click","#btnCancelSchedule",function(e){    
+
+	        var obj = this;
+	        ezBSAlert({
+	        type: "confirm",
+	        headerText:"Confirm",
+	        messageText: "Are you sure about this ?",
+	        alertType: "warning"
+	        }).done(function (e) {
+	          var id_visit_schedule = $(obj).data('id');
+	          //console.log("confirma::"+idProduct);
+	          //var url =baseurl+"/usuarios/ActEliminarUsuario";
+	          if(e){
+	              $.ajax({
+	                url: baseurl+"/visit/schedule/ActCancelSchedule",
+	                type: 'POST',
+	                data: { id_visit_schedule:id_visit_schedule} ,
+	                //contentType: 'application/json; charset=utf-8',
+	                success: function (result) {
+	                    if(result==0){
+	                        //alerts(0,msj,"");   
+	                        loadDataTable("#tbSchedule");
+	                        ezBSAlert({ headerText:"success", messageText: "El visita se cancelo con exito", alertType: "success"});
+	                    }else{
+	                        ezBSAlert({ headerText:"Error",messageText: "No se completo el proceso.. !!!", alertType: "danger"});
+	                    }
+
+
+	                },
+	                error: function () {
+	                    ezBSAlert({ headerText:"Error",messageText: "A ocurrido un error interno !!!", alertType: "danger"});
+	                }
+	              });
+	            
+	          }
+	        });
+	   });
 	 
 	 var dataTable = $('#tbSchedule').DataTable({
 	    	processing: true,
@@ -815,6 +853,14 @@ jQuery(document).ready( function () {
 	            "sClass": "text-center",
 	            "mRender": function(data, type, full) {
 	            	return '<button data-toggle="modal" data-target="#myModalViewVisitor" data-remote="false" type="button" data-id="'+data.id_visit_schedule+'"  id="btnViewEditVisitor" class="btn btn-info btn-xs" href="'+baseurl+'/visit/visitor/ActViewModifVisitor" ><i style="font-size: 18px;" class="fa fa-edit"></i></button>';
+	            }
+	        },
+	        { "mData":null,
+	            "bSortable": false,
+	            "sClass": "text-center",
+	            "mRender": function(data, type, full) {
+	            	//console.log(data);
+	            	return '<button type="button" data-id="'+data.id_visit_schedule+'" id="btnCancelSchedule" class="btn btn-warning btn-xs" title="Cancel" ><i style="font-size: 18px;" class="fa fa-ban"></i></button>';
 	            }
 	        },
 	        { "mData":null,

@@ -40,6 +40,25 @@
             Visit
             <address>
               <b id="id_visit_schedule">${visitSchedule.call_cod} </b><br>
+              
+              <b>Status:</b> 
+	              <c:choose>
+			         <c:when test = "${visitSchedule.status eq 1}">
+			            <span class="label label-primary" id="reasons_name">Generated</span><br>
+			         </c:when>
+			         <c:when test = "${visitSchedule.status eq 2}">
+			            <span class="label label-info" id="reasons_name">on visit</span><br>
+			         </c:when>
+			         <c:when test = "${visitSchedule.status eq 3}">
+			            <span class="label label-danger" id="reasons_name">finalized</span><br>
+			         </c:when>
+			         <c:when test = "${visitSchedule.status eq 4}">
+			            <span class="label label-warning" id="reasons_name">Cancel</span><br>
+			         </c:when>
+			         <c:otherwise>
+			            <span  id="reasons_name"> </span><br>
+			         </c:otherwise>
+		      	</c:choose>
               <b>Reason:</b> <span id="reasons_name">${visitSchedule.reasons_name}</span><br>
               <b>Date From:</b> <span id="date_hour"><fmt:formatDate pattern = "MM-dd-yyyy" value = "${visitSchedule.date_ini}"/></span><br>
               <b>Date To:</b> <span id="date_hour"><fmt:formatDate pattern = "MM-dd-yyyy" value = "${visitSchedule.date_end}"/></span><br>

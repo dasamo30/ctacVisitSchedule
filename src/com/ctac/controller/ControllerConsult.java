@@ -67,10 +67,10 @@ public class ControllerConsult {
 		//e.setId_employee(id_employee);
 		
 		VisitScheduleBean visitSchedule=serviceVisit.selectVisitScheduleByCallcod(call_cod);
+		if(visitSchedule!=null) {
 		visitSchedule.setListVisitorLog(serviceVisit.selectVisitorLog(visitSchedule.getId_visit_schedule()));
-		
 		lisVisitSchedule.add(visitSchedule);
-		
+		}
 		
 		System.out.println(lisVisitSchedule.toString());
 		

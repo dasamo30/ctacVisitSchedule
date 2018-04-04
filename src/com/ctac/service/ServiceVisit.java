@@ -116,4 +116,8 @@ public class ServiceVisit {
 	public ArrayList<VisitorLogBean> selectVisitorLog(int id_visit_schedule){
 		return visitDAO.selectVisitorLog(id_visit_schedule);
 	}
+	
+	public int updateStatusVisitSchedule(VisitScheduleBean visitSchedule) {
+		return visitDAO.updateStatusVisitSchedule(visitSchedule);
+	}
 }

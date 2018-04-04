@@ -178,5 +178,16 @@ public class ControllerVisitSchedule {
 		int rpta = this.serviceVisit.deleteVisitSchedule(VisitSchedule);
 		return rpta;
 	}
-
+	
+	@RequestMapping(value = {"/schedule/ActCancelSchedule"}, method = {RequestMethod.POST})
+	@ResponseBody
+	public int ActCancelSchedule(@RequestParam("id_visit_schedule") int id_visit_schedule) {
+		VisitScheduleBean visitSchedule=new VisitScheduleBean();
+		visitSchedule.setId_visit_schedule(id_visit_schedule);
+		visitSchedule.setStatus((short) 4);
+		int rpta = this.serviceVisit.updateStatusVisitSchedule(visitSchedule);
+		return rpta;
+	}
+	
+	
 }

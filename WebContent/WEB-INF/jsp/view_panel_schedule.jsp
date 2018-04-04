@@ -65,6 +65,7 @@
                         <th>Hour</th>
                         <th>employee</th>
                         <th>Edit</th>
+                        <th>Cancel</th>
                         <th>Remove</th>
                       </tr>
                     </thead>
@@ -78,6 +79,7 @@
                         <th>Hour</th>
                         <th>id_employee</th>
                         <th>Edit</th>
+                        <th>Cancel</th>
                         <th>Remove</th>
                       </tr>
                     </tfoot>

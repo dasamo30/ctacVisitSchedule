@@ -97,11 +97,11 @@ public class ControladorUsuarios {
 	public int ActRegistraUsuario(@RequestBody InfoUserBean usuario) {
 		int rpta = this.serviceAccesos.registraUsuarios(usuario);
 
-		try {
-			Thread.sleep(5000L);
-		} catch (InterruptedException arg3) {
-			Logger.getLogger(ControladorUsuarios.class.getName()).log(Level.SEVERE, (String) null, arg3);
-		}
+//		try {
+//			Thread.sleep(5000L);
+//		} catch (InterruptedException arg3) {
+//			Logger.getLogger(ControladorUsuarios.class.getName()).log(Level.SEVERE, (String) null, arg3);
+//		}
 
 		return rpta;
 	}
