@@ -911,4 +911,70 @@ jQuery(document).ready( function () {
 	        });
 	       
 	 });
+	 var dateNow = new Date();
+	 /************************ Reports ******************************/
+	 $('#datetimepicker6').datetimepicker({
+		 format: 'YYYY-MM-DD',
+		 defaultDate:dateNow
+	 });
+     $('#datetimepicker7').datetimepicker({
+    	 format: 'YYYY-MM-DD',
+    	 defaultDate:dateNow,
+         useCurrent: false 
+     });
+     $("#datetimepicker6").on("dp.change", function (e) {
+         $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+     });
+     $("#datetimepicker7").on("dp.change", function (e) {
+         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+     });
+     
+     $(document).on("submit","#formReporteVisits",function(e){
+    	 e.preventDefault(); 
+	     console.log("ajaxxxxxxxxxxxxxxxx");
+    	 
+	     var dataTable = $('#tbReportVisit').DataTable({
+		    	processing: true,
+		    	bJQueryUI: true,
+		        //"serverSide": true,
+		        responsive: true,
+		        autoWidth: false,
+		        ordering:false,
+		        ajax:{
+		            url :baseurl+"/visit/schedule/ActlistSchedule", // json datasource
+		            type: "post",  // method  , by default get
+		            complete: function(){
+		               table=$(this);
+		              //alert(dataTable);
+		              //console.log(table.parent());
+		              table.parent().addClass("table-responsive");
+		             // table.parent().addClass('table-responsive');//.removeClass('col-sm-12');
+		            },
+		            error: function(){  // error handling
+		                $(".tbSchedule-grid-error").html("");
+		                $("#tbSchedule-grid").append('<tbody class="tbSchedule-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+		                $("#tbSchedule-grid_processing").css("display","none");
+
+		            }
+		        },
+		        "aoColumns": [
+		        { "mData": "call_cod"},
+		        { "mData": "full_name_visitor" },
+		        { "mData": "company_name" },
+		        { "mData": "date_ini" },
+		        { "mData": "date_end" },
+		        { "mData": "hour" },
+		        { "mData": "full_name_employee" },
+		        { "mData":null,
+		            "bSortable": false,
+		            "sClass": "text-center",
+		            "mRender": function(data, type, full) {
+		            	return '<button data-toggle="modal" data-target="#myModalViewVisitor" data-remote="false" type="button" data-id="'+data.id_visit_schedule+'"  id="btnViewEditVisitor" class="btn btn-info btn-xs" href="'+baseurl+'/visit/visitor/ActViewModifVisitor" ><i style="font-size: 18px;" class="fa fa-edit"></i></button>';
+		            }
+		        }
+		        ] 
+		    });
+	     
+     });
+     
 });

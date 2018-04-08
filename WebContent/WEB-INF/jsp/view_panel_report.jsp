@@ -3,16 +3,63 @@
         <section class="content">
        <div class="row">
        <div class="col-md-12">
-           <div class="box box-widget"> 
-           view_panel_report.jsp
-          <!-- Small boxes (Stat box) -->
-          <!--<div class="post-content">
-            <label style="font-size:16px;font-weight: bold; color:#066DAB;">WELCOME  Asset Management</label>
-        </div>
-          <div class="box-body" >
-              <img style="height:440px; width: 100%;"  src="${contextPath}/images/fondoctac.jpg" alt="Photo">    
-          </div>-->
-       </div> 
+         <div class="box box-primary">
+                <div class="box-header with-border">
+              <h3 class="box-title">Ingrese los Datos</h3>
+            </div>
+              <form id="formReporteVisits" class="box-body" data-toggle="validator" role="form">
+            
+                      <div class="form-group col-md-4">
+                            <label for="txtFechaIni">Fecha desde: </label>    
+                            <div class="input-group date" id="datetimepicker6">
+								<input class="form-control pull-right" id="txtFechaIni" name="fechaIni" type="text" required  >
+								<div class="input-group-addon open-datetimepicker">
+								<i class="fa fa-calendar" id="fa-calendar_ini"></i>
+								</div>
+								</div>
+                            <div class="help-block with-errors"></div>
+                       </div>
+                  <!-- Date and time range -->
+                 <div class="form-group col-md-4">
+                            <label for="txtFechaFin">Fecha Hasta: </label>    
+                            <div class="input-group date" id="datetimepicker7">
+								<input class="form-control pull-right" id="txtFechaFin"  name="fechaFin" type="text" required  >
+								<div class="input-group-addon open-datetimepicker">
+								<i class="fa fa-calendar" id="fa-calendar_fin"></i>
+								</div>
+								</div>
+                            <div class="help-block with-errors"></div>
+                       </div>
+                  <div class="form-group col-md-1">
+                  <div class="input-group">
+                   <label>&nbsp;</label>
+                   <button type="submit" class="btn btn-primary ">Generar Reporte</button>
+                   </div>
+                  </div>     
+               </form>
+               <hr>
+            
+            <div class="box-body">
+               <div id="divReportVisit">
+               <div class="box-body">
+                  <table id="tbReportVisit" class="table table-bordered table-striped table-hover box-solid">
+                    <thead>
+                      <tr>
+                        <th>Visit code</th>
+                        <th>Visitor</th>
+                        <th>Company</th>
+                        <th>Date from</th>
+                        <th>Date to</th>
+                        <th>Hour</th>
+                        <th>Employee</th>
+                        <th>View</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+               
+               </div>
+               </div>
        </div>
        </div> 
         </section><!-- /.content -->
