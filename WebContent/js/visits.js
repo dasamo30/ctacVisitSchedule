@@ -932,14 +932,30 @@ jQuery(document).ready( function () {
      $(document).on("submit","#formReporteVisits",function(e){
     	 e.preventDefault(); 
 	     console.log("ajaxxxxxxxxxxxxxxxx");
-    	 
-	     var dataTable = $('#tbReportVisit').DataTable({
-		    	processing: true,
-		    	bJQueryUI: true,
-		        //"serverSide": true,
-		        responsive: true,
-		        autoWidth: false,
-		        ordering:false,
+	     frm=$(this);
+	     	$.ajax({
+	     	 url :baseurl+"/visit/schedule/ActReportsVisits",
+	    	 type: "post",
+	    	 data: frm.serializeJSON()
+	    	 }).done(function (data) {
+	    		 
+	    		 var dataJson = $.parseJSON(data);
+
+	    		 console.log(dataJson);
+	             /* var table = $('#example').DataTable();
+	    		   table.clear().draw();
+	               table.rows.add(data.aaData).draw();
+	               */
+	    		 dataTableRepo.clear().draw();
+	    		 //alert("table");
+	    		 dataTableRepo.rows.add(dataJson.aaData).draw();
+	    		 
+	    		 
+	    		 
+	    	 }).fail(function (jqXHR, textStatus, errorThrown) {
+	    	 // needs to implement if it fails
+	    	 });
+	     		/*
 		        ajax:{
 		            url :baseurl+"/visit/schedule/ActlistSchedule", // json datasource
 		            type: "post",  // method  , by default get
@@ -956,25 +972,34 @@ jQuery(document).ready( function () {
 		                $("#tbSchedule-grid_processing").css("display","none");
 
 		            }
-		        },
-		        "aoColumns": [
-		        { "mData": "call_cod"},
-		        { "mData": "full_name_visitor" },
-		        { "mData": "company_name" },
-		        { "mData": "date_ini" },
-		        { "mData": "date_end" },
-		        { "mData": "hour" },
-		        { "mData": "full_name_employee" },
-		        { "mData":null,
-		            "bSortable": false,
-		            "sClass": "text-center",
-		            "mRender": function(data, type, full) {
-		            	return '<button data-toggle="modal" data-target="#myModalViewVisitor" data-remote="false" type="button" data-id="'+data.id_visit_schedule+'"  id="btnViewEditVisitor" class="btn btn-info btn-xs" href="'+baseurl+'/visit/visitor/ActViewModifVisitor" ><i style="font-size: 18px;" class="fa fa-edit"></i></button>';
-		            }
-		        }
-		        ] 
-		    });
+		        }*/
 	     
      });
+     
+      dataTableRepo = $('#tbReportVisit').DataTable({
+	    	processing: true,
+	    	bJQueryUI: true,
+	        //"serverSide": true,
+	        responsive: true,
+	        autoWidth: false,
+	        ordering:false,
+	        data:[],
+	        "aoColumns": [
+	        { "mData": "call_cod"},
+	        { "mData": "full_name_visitor" },
+	        { "mData": "company_name" },
+	        { "mData": "date_ini" },
+	        { "mData": "date_end" },
+	        { "mData": "hour" },
+	        { "mData": "full_name_employee" },
+	        { "mData":null,
+	            "bSortable": false,
+	            "sClass": "text-center",
+	            "mRender": function(data, type, full) {
+	            	return '<button data-toggle="modal" data-target="#myModalViewVisitor" data-remote="false" type="button" data-id="'+data.id_visit_schedule+'"  id="btnViewEditVisitor" class="btn btn-info btn-xs" href="'+baseurl+'/visit/visitor/ActViewModifVisitor" ><i style="font-size: 18px;" class="fa fa-edit"></i></button>';
+	            }
+	        }
+	        ] 
+	    });
      
 });
