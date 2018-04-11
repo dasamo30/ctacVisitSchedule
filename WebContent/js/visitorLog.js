@@ -201,9 +201,9 @@ jQuery(document).ready( function () {
     				   all_ok=false;
     			   	}
     		   }
-    		   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType});	   
+    		   listVisit.push({ "id_visit_schedule": $(this).val(), "badge_number":badge_number , "type": cboType, "registration_date":$(this).data('date')});	   
     	   }else{
-    		   listVisit.push({ "id_visit_schedule": $(this).val() , "type": cboType, "reason":cboReason });
+    		   listVisit.push({ "id_visit_schedule": $(this).val() , "type": cboType, "reason":cboReason ,"registration_date":$(this).data('date') });
     	   }
     	   //var frm=Object.assign(dataJson, {id_visit_schedule:$(this).val()});
     	   
@@ -280,9 +280,15 @@ jQuery(document).ready( function () {
 	    }        
      });
 	
+     $('.select2-selection').on('keyup', function (e) {
+         if (e.keyCode === 13) {
+           $(this).closest('form').submit();
+         }
+       });
+     
 	 $('#cboVisitSearch').select2({
 	        placeholder: 'Select an item',
-	        minimumInputLength: 2,
+	        minimumInputLength: 3,
 	        allowClear: true,
 	        ajax: {
 	          type: "POST",   

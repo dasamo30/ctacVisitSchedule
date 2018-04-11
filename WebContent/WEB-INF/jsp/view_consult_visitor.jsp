@@ -118,4 +118,5 @@
 
                 </c:if>
                 </div><!-- /.box-footer -->
+                <div id="editor"></div>
                 

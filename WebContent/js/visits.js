@@ -934,7 +934,7 @@ jQuery(document).ready( function () {
 	     console.log("ajaxxxxxxxxxxxxxxxx");
 	     frm=$(this);
 	     	$.ajax({
-	     	 url :baseurl+"/visit/schedule/ActReportsVisits",
+	     	 url :baseurl+"/visit/report/ActReportsVisits",
 	    	 type: "post",
 	    	 data: frm.serializeJSON()
 	    	 }).done(function (data) {
@@ -976,6 +976,21 @@ jQuery(document).ready( function () {
 	     
      });
      
+     $('#myModalViewReport').on('show.bs.modal', function (e) { 
+	        
+	        console.log("myModalViewCompany");
+	        
+	        var btn = $(e.relatedTarget);
+	        //var call_cod=btn.data('id');
+	        data={"call_cod":btn.data('id')};
+	       
+	        $.post(btn.attr("href"),data, function( result ) { 
+	        	//$('#modal-title').html(title);
+	            $('#modal-body').html(result); 
+	            $(frm).validator();
+	        }); 
+	    });
+     
       dataTableRepo = $('#tbReportVisit').DataTable({
 	    	processing: true,
 	    	bJQueryUI: true,
@@ -996,7 +1011,7 @@ jQuery(document).ready( function () {
 	            "bSortable": false,
 	            "sClass": "text-center",
 	            "mRender": function(data, type, full) {
-	            	return '<button data-toggle="modal" data-target="#myModalViewVisitor" data-remote="false" type="button" data-id="'+data.id_visit_schedule+'"  id="btnViewEditVisitor" class="btn btn-info btn-xs" href="'+baseurl+'/visit/visitor/ActViewModifVisitor" ><i style="font-size: 18px;" class="fa fa-edit"></i></button>';
+	            	return '<button data-toggle="modal" data-target="#myModalViewReport" data-remote="false" type="button" data-id="'+data.call_cod+'"  id="btnViewReportVisit" class="btn btn-success btn-xs" href="'+baseurl+'/visit/consult/ActConsultVisitor" ><i class="fa  fa-list-alt"></i></button>';
 	            }
 	        }
 	        ] 

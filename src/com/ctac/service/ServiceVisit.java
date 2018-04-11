@@ -120,4 +120,9 @@ public class ServiceVisit {
 	public int updateStatusVisitSchedule(VisitScheduleBean visitSchedule) {
 		return visitDAO.updateStatusVisitSchedule(visitSchedule);
 	}
+	
+	public ArrayList<VisitScheduleBean> selectVisitScheduleReport(String fechaIni,String fechaFin){
+		return visitDAO.selectVisitScheduleReport(fechaIni, fechaFin);
+	}
+	
 }

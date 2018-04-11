@@ -62,5 +62,23 @@
                </div>
        </div>
        </div> 
+       <!-- Default bootstrap modal example -->
+            <div class="modal fade" id="myModalViewReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-title">Visit detail</h4>
+                  </div>
+                    <div class="modal-body" id="modal-body">
+                    
+                  </div>
+                  <div class="modal-footer">
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!--                     <button type="button" id="btnPdfReportVisit" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
         </section><!-- /.content -->
  <%@include file="view_panel_footer.jsp" %>   

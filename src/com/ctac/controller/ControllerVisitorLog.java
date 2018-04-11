@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,15 +59,33 @@ public class ControllerVisitorLog {
 	@RequestMapping(value = {"/visitorLog/ActSearchVisit"}, method = {RequestMethod.POST})
 	@ResponseBody
 	public ModelAndView ActSearchVisit(@RequestParam("id_visitor") int id_visitor) {
+		Date date =Calendar.getInstance().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		ArrayList<VisitScheduleBean> listData=new ArrayList<>();
 		
 		ArrayList<VisitScheduleBean> lisVisitSchedule=serviceVisit.selectVisitScheduleByidVisitor(id_visitor);
 		
-		System.out.println("count"+lisVisitSchedule.size());
-		System.out.println(lisVisitSchedule.toString());
+		
+		
+		for (VisitScheduleBean vs : lisVisitSchedule) {
+
+			ArrayList<VisitorLogBean> log=(ArrayList<VisitorLogBean>) serviceVisit.selectVisitorLog(vs.getId_visit_schedule()).stream()
+					.filter(item -> item.getType()==2 && sdf.format(item.getRegistration_date()).equals(sdf.format(date))).collect(Collectors.toList());
+			System.out.println("size arreglo*****************: "+log.size());
+			if(log.size()!=1) {
+				System.out.println(vs.toString());
+				listData.add(vs);
+			}
+			
+		}
+		
+		
+		System.out.println("count"+listData.size());
+		System.out.println(listData.toString());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("view_list_visits");
-		mav.addObject("lisVisitSchedule", lisVisitSchedule);
+		mav.addObject("lisVisitSchedule", listData);
 		return mav;
 	}
 	
@@ -100,9 +119,26 @@ public class ControllerVisitorLog {
 	@RequestMapping(value = {"/visitorLog/ActRegisterVisit"}, method = {RequestMethod.POST})
 	@ResponseBody
 	public int ActRegisterVisit(@RequestBody List<VisitorLogBean> listVisit) {
+		/*
+		Date date =Calendar.getInstance().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+		for (VisitorLogBean v : listVisit) {
+			System.out.println(sdf.format(v.getRegistration_date())+"=="+sdf.format(date));
+			if(sdf.format(v.getRegistration_date()).equals(sdf.format(date))) {
+				System.out.println("iguales");
+			}else {
+				System.out.println("diferente");
+			}
+		}
+		*/
+		
+		
 		int rpta=-1;
 		System.out.println("count:"+listVisit.size());
 		System.out.println(":::::::::::::::::::"+listVisit.toString());
+		
+		
 		
 		rpta=serviceVisit.insertVisitorLog(listVisit);
 		return rpta;

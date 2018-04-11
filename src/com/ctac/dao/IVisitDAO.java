@@ -50,4 +50,6 @@ public interface IVisitDAO {
 	public ArrayList<VisitorLogBean> selectVisitorLog(int id_visit_schedule);
 	
 	public int updateStatusVisitSchedule(VisitScheduleBean visitSchedule);
+	
+	public ArrayList<VisitScheduleBean> selectVisitScheduleReport(String fechaIni,String fechaFin);
 }

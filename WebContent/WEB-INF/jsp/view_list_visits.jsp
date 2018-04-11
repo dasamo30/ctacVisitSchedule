@@ -41,8 +41,8 @@
             <address>
               <b id="id_visit_schedule">${visitSchedule.call_cod} </b><br>
               <b>Reason:</b> <span id="reasons_name">${visitSchedule.reasons_name}</span><br>
-              <b>Date From:</b><span id="date_hour">${visitSchedule.date_ini}</span><br>
-              <b>Date To:</b><span id="date_hour">${visitSchedule.date_end}</span><br>
+              <b>Date From:</b><span id="date_hour"><fmt:formatDate pattern = "MM-dd-yyyy" value = "${visitSchedule.date_ini}"/></span><br>
+              <b>Date To:</b><span id="date_hour"><fmt:formatDate pattern = "MM-dd-yyyy" value = "${visitSchedule.date_end}"/></span><br>
               <b>Hour:</b><span id="date_hour">${visitSchedule.hour}</span><br>
                <b>Department:</b><span id="department_name">${visitSchedule.department_name}</span><br>
               <!--<b>Account:</b> 968-34567-->
@@ -51,7 +51,7 @@
             <div class="col-sm-1 invoice-col">
             <address>
               <br><br><br>	
-              <b id="id_visit_schedule"><input type="checkbox" checked="checked" data-id="${visitSchedule.number_badge}"  data-cod="${visitSchedule.call_cod}"   class="ids" name="ids[]" value="${visitSchedule.id_visit_schedule}" ></b>
+              <b id="id_visit_schedule"><input type="checkbox" checked="checked" data-id="${visitSchedule.number_badge}"  data-cod="${visitSchedule.call_cod}" data-date="<fmt:formatDate pattern = "yyyy-MM-dd" value = "${visitSchedule.date_end}"/>"  class="ids" name="ids[]" value="${visitSchedule.id_visit_schedule}" ></b>
               </address>
             </div>
             <!-- /.col -->

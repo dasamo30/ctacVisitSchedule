@@ -1075,6 +1075,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		
 		// TODO Auto-generated method stub
 		Date date =Calendar.getInstance().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		int rpta = -1;
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
@@ -1082,7 +1083,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			tx = session.beginTransaction();
 			
 			for (VisitorLogBean visitorLog : listVisitorLog) {
-				visitorLog.setRegistration_date(date);
+				//visitorLog.setRegistration_date(date);
 				
 			String sql = "INSERT INTO visits.visitor_log(\n" + 
 					"            id_visit_schedule, badge_number, type, registration_date, reason)\n" + 
@@ -1091,7 +1092,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			query.setParameter("id_visit_schedule", visitorLog.getId_visit_schedule());
 			query.setParameter("badge_number", visitorLog.getBadge_number());
 			query.setParameter("type", visitorLog.getType());
-			query.setParameter("registration_date", visitorLog.getRegistration_date());
+			query.setParameter("registration_date", date);
 			query.setParameter("reason", visitorLog.getReason());
 			int result =query.executeUpdate();
 			
@@ -1103,7 +1104,16 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			SQLQuery query2 = session.createSQLQuery(sql2);
 			query2.setParameter("id_visit_schedule", visitorLog.getId_visit_schedule());
 			query2.setParameter("badge_number", visitorLog.getBadge_number());
-			query2.setParameter("status",(visitorLog.getType()==1)? 2:3);
+			
+			if(visitorLog.getType()==1) {
+				query2.setParameter("status",2);
+			}else{
+				if(sdf.format(visitorLog.getRegistration_date()).equals(sdf.format(date))) {
+					query2.setParameter("status",3);
+				}else {
+					query2.setParameter("status",2);
+				}
+			}
 			
 			int result2 =query2.executeUpdate();
 			
@@ -1361,6 +1371,92 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	        }	
 
 		return rpta;
+	}
+
+
+	@Override
+	public ArrayList<VisitScheduleBean> selectVisitScheduleReport(String fechaIni, String fechaFin) {
+		Session session = sessionFactory.openSession();
+		//ArrayList litsPerfilBean = new ArrayList();
+		String date=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		ArrayList<VisitScheduleBean> listVisitSchedule=new ArrayList<>();
+		try {
+			//tx = session.beginTransaction();
+			String  sql= "SELECT a.id_visit_schedule, a.date_ini, a.date_end, a.hour, a.badge_number, a.id_company, a.id_employee,a.id_department,  \n" + 
+					"a.id_visitor, a.registration_date, a.id_usuario, a.id_reason, a.status,a.call_cod,  \n" + 
+					"b.full_name as full_name_visitor, b.number_license, b.citizen_ship, b.email, b.phone_number,  \n" + 
+					"c.full_name as full_name_employee,g.occupation as occupation_employee,  \n" + 
+					"d.company_name,  \n" + 
+					"e.reasons_name,  \n" + 
+					"f.department  \n" + 
+					"  FROM visits.visit_schedule a  \n" + 
+					"  inner join visits.visitors b on b.id_visitor=a.id_visitor  \n" + 
+					"  inner join visits.employee c on c.id_employee=a.id_employee  \n" + 
+					"  inner join visits.company d on d.id_company=a.id_company  \n" + 
+					"  inner join visits.reasons_visit e on e.id_reason=a.id_reason  \n" + 
+					"  inner join visits.department f on f.id_department=a.id_department  \n" + 
+					"  inner join visits.occupation g on g.id_occupation=c.id_occupation \n" + 
+					"  where  \n" + 
+					"  cast( a.registration_date as date) BETWEEN cast( :fechaIni as date) AND cast( :fechaFin as date)\n" + 
+					"  order by a.registration_date desc";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setParameter("fechaIni", fechaIni);
+			query.setParameter("fechaFin", fechaFin);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+			
+			for(Object object : data)
+	         {
+	            Map row = (Map)object;
+	            VisitScheduleBean visitSchedule=new VisitScheduleBean();
+	            visitSchedule.setId_visit_schedule(((BigInteger) row.get("id_visit_schedule")).intValue());
+				visitSchedule.setDate_ini((Date) row.get("date_ini"));
+				visitSchedule.setDate_end((Date) row.get("date_end"));
+				visitSchedule.setHour((String) row.get("hour"));
+				visitSchedule.setNumber_badge((String) row.get("badge_number"));
+				visitSchedule.setId_company((int) row.get("id_company"));
+				visitSchedule.setId_employee((int) row.get("id_employee"));
+				visitSchedule.setId_visitor((int) row.get("id_visitor"));
+				visitSchedule.setId_usuario((int) row.get("id_usuario"));
+				visitSchedule.setId_reason((int) row.get("id_reason"));
+				visitSchedule.setId_department((int) row.get("id_department"));
+	            visitSchedule.setStatus((short) row.get("status"));
+	            visitSchedule.setRegistration_date((Date) row.get("registration_date"));
+	            visitSchedule.setFull_name_visitor((String) row.get("full_name_visitor"));
+	            visitSchedule.setNumber_license((String) row.get("number_license"));
+	            visitSchedule.setCitizen_ship((String) row.get("citizen_ship"));
+	            visitSchedule.setEmail((String) row.get("email"));
+	            visitSchedule.setPhone_number((String) row.get("phone_number"));
+	            visitSchedule.setFull_name_employee((String) row.get("full_name_employee"));
+	            visitSchedule.setOccupation_employee((String) row.get("occupation_employee"));
+	            visitSchedule.setCompany_name((String) row.get("company_name"));
+	            visitSchedule.setReasons_name((String) row.get("reasons_name"));
+	            visitSchedule.setDepartment_name((String) row.get("department"));
+	            visitSchedule.setCall_cod((String) row.get("call_cod"));
+	            
+	            listVisitSchedule.add(visitSchedule);
+	         }
+				
+
+			/*
+			if (!tx.wasCommitted()) {
+				tx.commit();
+			}*/
+		} catch (HibernateException e) {
+			/*if (tx != null) {
+				tx.rollback();
+			}*/
+			System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::.");
+			listVisitSchedule = null;
+			e.printStackTrace();
+			
+		} finally {
+			System.out.println(":::::::::finally::::::finally:::::::::::finally::.");
+			
+			session.close();
+		}
+
+		return listVisitSchedule;
 	}
 
 

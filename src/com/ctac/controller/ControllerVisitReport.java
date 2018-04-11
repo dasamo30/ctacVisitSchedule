@@ -56,8 +56,9 @@ public class ControllerVisitReport {
 			@RequestParam("fechaIni") String fechaIni,
 			@RequestParam("fechaFin") String fechaFin) {
 		
+		System.out.println(fechaIni+"--"+fechaFin);
 		DataTableObject dataTableObject = new DataTableObject();
-		ArrayList<VisitScheduleBean> listVisitSchedule = this.serviceVisit.selectVisitSchedule();
+		ArrayList<VisitScheduleBean> listVisitSchedule = this.serviceVisit.selectVisitScheduleReport(fechaIni, fechaFin);
 		
 		dataTableObject.setAaData(listVisitSchedule);
 		dataTableObject.setiTotalDisplayRecords(listVisitSchedule.size());
