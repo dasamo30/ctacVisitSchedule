@@ -208,7 +208,7 @@
     <script src="${contextPath}/plugins/knob/jquery.knob.js"></script>
     <!-- daterangepicker -->
     <script src="${contextPath}/plugins/moment/2.10.2/moment.min.js"></script>
-    <script src="${contextPath}/plugins/moment/locale/es.js"></script>
+<%--     <script src="${contextPath}/plugins/moment/locale/es.js"></script> --%>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>-->
     <script src="${contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- datepicker --
