@@ -75,7 +75,7 @@ public class ControladorLogin {
 				listado = file.muestra_menu_familias(request.getContextPath(), bean.getId_perfil());
 			}
 			
-			System.out.println(listado.toString());
+			//System.out.println(listado.toString());
 			log.info(listado.toString());
 			msjlogin.setAttribute("lmemus", listado);
 			//File file1 = new File("/opt/BroadcasterSms/dist/fotos/user/" + bean.getFoto());

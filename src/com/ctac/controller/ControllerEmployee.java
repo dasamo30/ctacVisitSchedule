@@ -79,7 +79,7 @@ private ServiceVisit serviceVisit= new ServiceVisit();
 		
 		employeeBean.setStatus((short) 1);
 		employeeBean.setRegistration_date(date);
-		System.out.println(employeeBean.toString());
+		//System.out.println(employeeBean.toString());
 		int rpta =this.serviceVisit.insertIntoEmployee(employeeBean);
 		return rpta;
 	}
@@ -98,7 +98,7 @@ private ServiceVisit serviceVisit= new ServiceVisit();
 		Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
 		String json = gson.toJson(dataTableObject);
 		
-		System.out.println(json);
+		//System.out.println(json);
 		return json;
 	}
 	
@@ -130,7 +130,7 @@ private ServiceVisit serviceVisit= new ServiceVisit();
 		
 		//companyBean.setStatus((short) 1);
 		//companyBean.setRegistration_date(date);
-		System.out.println(employeeBean.toString());
+		//System.out.println(employeeBean.toString());
 		int rpta =this.serviceVisit.updateEmployee(employeeBean);
 		return rpta;
 	}

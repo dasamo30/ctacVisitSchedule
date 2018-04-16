@@ -52,4 +52,6 @@ public interface IVisitDAO {
 	public int updateStatusVisitSchedule(VisitScheduleBean visitSchedule);
 	
 	public ArrayList<VisitScheduleBean> selectVisitScheduleReport(String fechaIni,String fechaFin);
+	
+	public int updateStatusVisitScheduleCron();
 }

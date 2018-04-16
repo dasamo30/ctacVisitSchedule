@@ -71,17 +71,17 @@ public class ControllerVisitorLog {
 
 			ArrayList<VisitorLogBean> log=(ArrayList<VisitorLogBean>) serviceVisit.selectVisitorLog(vs.getId_visit_schedule()).stream()
 					.filter(item -> item.getType()==2 && sdf.format(item.getRegistration_date()).equals(sdf.format(date))).collect(Collectors.toList());
-			System.out.println("size arreglo*****************: "+log.size());
+			//System.out.println("size arreglo*****************: "+log.size());
 			if(log.size()!=1) {
-				System.out.println(vs.toString());
+				//System.out.println(vs.toString());
 				listData.add(vs);
 			}
 			
 		}
 		
 		
-		System.out.println("count"+listData.size());
-		System.out.println(listData.toString());
+		//System.out.println("count"+listData.size());
+		//System.out.println(listData.toString());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("view_list_visits");
@@ -135,8 +135,8 @@ public class ControllerVisitorLog {
 		
 		
 		int rpta=-1;
-		System.out.println("count:"+listVisit.size());
-		System.out.println(":::::::::::::::::::"+listVisit.toString());
+		//System.out.println("count:"+listVisit.size());
+		//System.out.println(":::::::::::::::::::"+listVisit.toString());
 		
 		
 		
@@ -148,13 +148,13 @@ public class ControllerVisitorLog {
 	public int ActRegisterVisit222(@ModelAttribute("listObject") String listObject) throws JsonParseException, JsonMappingException, IOException {//List<ListName> listObject
 		Date date =Calendar.getInstance().getTime();
 		
-		System.out.println(listObject.toString());
+		//System.out.println(listObject.toString());
 		ObjectMapper a=new ObjectMapper();
 		List<VisitorLogBean> myObjects = Arrays.asList(a.readValue(listObject, VisitorLogBean[].class));
 		
-		System.out.println("tamoño:"+myObjects.size());
+		//System.out.println("tamoño:"+myObjects.size());
 		
-		System.out.println("ActRegisterVisit: "+myObjects.toString());
+		//System.out.println("ActRegisterVisit: "+myObjects.toString());
 
 
 

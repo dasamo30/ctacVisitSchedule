@@ -48,7 +48,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -59,7 +59,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -85,7 +85,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -96,7 +96,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -122,7 +122,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -133,7 +133,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -205,7 +205,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -216,7 +216,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -244,7 +244,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -255,7 +255,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -282,7 +282,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -293,7 +293,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -410,7 +410,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -421,7 +421,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -451,7 +451,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -462,7 +462,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -489,7 +489,7 @@ public class VisitDAOImplements implements IVisitDAO {
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -500,7 +500,7 @@ public class VisitDAOImplements implements IVisitDAO {
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -677,7 +677,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=call_cod;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -688,7 +688,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -720,7 +720,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -731,7 +731,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -1124,7 +1124,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -1135,7 +1135,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -1355,7 +1355,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 			 if (!tx.wasCommitted()){
 	                tx.commit();
 	                rpta=0;
-	                System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
 	          }
 	            
 	        }catch (HibernateException e) {
@@ -1366,7 +1366,7 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 	            System.out.println("HibernateException:: "+e.getMessage());
 	            e.printStackTrace(); 
 	        }finally {
-	         System.out.println("Hibernate.session.close::");	
+	         //System.out.println("Hibernate.session.close::");	
 	          session.close();
 	        }	
 
@@ -1457,6 +1457,43 @@ VALUES ('2018-03-14 08:00:00',3,1,1,now(),1,3,1,1) RETURNING call_cod;
 		}
 
 		return listVisitSchedule;
+	}
+
+
+	@Override
+	public int updateStatusVisitScheduleCron() {
+		int rpta =-1;
+		Transaction tx = null;
+		Session session = sessionFactory.openSession();
+		//System.out.println(visitSchedule.toString());
+		try {
+			tx = session.beginTransaction();
+			String sql = "update visits.visit_schedule\n" + 
+					"  set  status=:status \n" + 
+					"  where status not in(3,4) and cast(date_end as date)<cast(now() as date)";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setParameter("status", 3);
+			int result =query.executeUpdate();
+			System.out.println("resultdet.executeUpdate:: "+result);
+			 if (!tx.wasCommitted()){
+	                tx.commit();
+	                rpta=result;
+	                //System.out.println("Hibernate.wasCommitted:: "+tx.getLocalStatus());
+	          }
+	            
+	        }catch (HibernateException e) {
+	            if (tx!=null){
+	            	System.out.println("HibernateException.rollback:: "+e.getMessage());
+	                tx.rollback();
+	            }
+	            System.out.println("HibernateException:: "+e.getMessage());
+	            e.printStackTrace(); 
+	        }finally {
+	         //System.out.println("Hibernate.session.close::");	
+	          session.close();
+	        }	
+
+		return rpta;
 	}
 
 

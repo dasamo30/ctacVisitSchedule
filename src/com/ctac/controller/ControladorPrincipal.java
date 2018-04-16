@@ -28,7 +28,7 @@ public class ControladorPrincipal {
 		mv.addObject("titlemenu", titlemenu);
 		mv.addObject("route", route);
 		mv.setViewName("view_panel");
-		System.out.println("panelllllllll::::::::::::."+sesion.getAttribute("lmemus").toString());
+		//System.out.println("panelllllllll::::::::::::."+sesion.getAttribute("lmemus").toString());
 		
 		return mv;
 	}

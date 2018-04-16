@@ -72,7 +72,7 @@ public class ControllerVisitor {
 		
 		visitorBean.setStatus((short) 1);
 		visitorBean.setRegistration_date(date);
-		System.out.println(visitorBean.toString());
+		//System.out.println(visitorBean.toString());
 		int rpta =this.serviceVisit.insertIntoVisitor(visitorBean);
 		return rpta;
 	}
@@ -91,7 +91,7 @@ public class ControllerVisitor {
 		Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
 		String json = gson.toJson(dataTableObject);
 		
-		System.out.println(json);
+		//System.out.println(json);
 		return json;
 	}
 	
@@ -119,7 +119,7 @@ public class ControllerVisitor {
 	@ResponseBody
 	public int ActModifVisitor(@RequestBody VisitorBean visitorBean) {
 		
-		System.out.println(visitorBean.toString());
+		//System.out.println(visitorBean.toString());
 		int rpta =this.serviceVisit.updateVisitor(visitorBean);
 		return rpta;
 	}

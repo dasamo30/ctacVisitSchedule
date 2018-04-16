@@ -83,7 +83,7 @@ public class Menu_recursivo<T> {
 
 	public String muestra_menu_familias(String contextPath, int idPerfil) {
 		ArrayList datamenus = this.serviceAccesos.get_menus_accesos_perfiles();
-		System.out.println("muestra_menu_familias" + datamenus.size());
+		//System.out.println("muestra_menu_familias" + datamenus.size());
 		String string = "";
 		string = string + this.muestra_menu(0, "", contextPath, idPerfil, datamenus);
 		string = string + "</li>\n";
