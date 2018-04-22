@@ -23,6 +23,11 @@
         </configuration>
       </plugin>
     </plugins>
+    <resources>
+        <resource>
+                <directory>src/resources</directory>
+        </resource>
+    </resources>
   </build>
      <properties>
         <springframework.version>4.3.11.RELEASE</springframework.version>
